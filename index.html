@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MYP Design Rubric Explorer</title>
+<title>MYP Design Explorer</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing:border-box; margin:0; padding:0; }
@@ -19,10 +19,10 @@
   --l3-bg:#e4f5fb; --l3:#0e5878; --l3-bd:#7ecce8; --l3-bg-tbl:rgba(228,245,251,0.55);
   --l4-bg:#f0eaff; --l4:#4a18a8; --l4-bd:#b898f2; --l4-bg-tbl:rgba(240,234,255,0.55);
 }
-body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif; font-size:17px; line-height:1.65; min-height:100vh; }
+body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif; font-size:17px; line-height:1.65; min-height:100vh; display:flex; flex-direction:column; }
 
 /* HEADER */
-header { background:var(--surface); border-bottom:3px solid var(--border); padding:18px 36px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+header { background:var(--surface); border-bottom:3px solid var(--border); padding:18px 36px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; flex-shrink:0; }
 .hdr-left { display:flex; align-items:center; gap:14px; }
 .hdr-icon { font-size:36px; line-height:1; }
 .hdr-title { font-size:24px; font-weight:900; color:var(--text); }
@@ -34,13 +34,13 @@ header { background:var(--surface); border-bottom:3px solid var(--border); paddi
 .diff-btn:hover,.diff-btn.active { background:var(--l4); color:#fff; border-color:var(--l4); }
 
 /* LAYOUT */
-.layout { display:grid; grid-template-columns:295px 1fr; min-height:calc(100vh - 78px); }
+.layout { display:flex; flex:1; overflow:hidden; }
 
 /* SIDEBAR */
-.sidebar { background:var(--surface); border-right:3px solid var(--border); padding:22px 16px; display:flex; flex-direction:column; gap:20px; position:sticky; top:0; height:calc(100vh - 78px); overflow-y:auto; }
-.sidebar::-webkit-scrollbar { width:4px; } .sidebar::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
-.flabel { font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); margin-bottom:8px; }
-.crit-btn { display:flex; align-items:center; gap:10px; padding:11px 13px; border-radius:12px; border:2.5px solid transparent; background:transparent; cursor:pointer; width:100%; text-align:left; transition:all .15s; margin-bottom:4px; font-family:'Nunito',sans-serif; }
+.sidebar { background:var(--surface); border-right:3px solid var(--border); padding:22px 16px; display:flex; flex-direction:column; gap:16px; width:295px; min-width:295px; flex-shrink:0; height:100%; overflow-y:auto; overflow-x:hidden; }
+.main { flex:1; overflow-y:auto; padding:30px 36px; }
+.sidebar::-webkit-scrollbar { width:4px; } .sidebar::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }.flabel { font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); margin-bottom:8px; }
+.crit-btn { display:flex; align-items:center; gap:10px; padding:9px 13px; border-radius:12px; border:2.5px solid transparent; background:transparent; cursor:pointer; width:100%; text-align:left; transition:all .15s; margin-bottom:3px; font-family:'Nunito',sans-serif; }
 .crit-btn:hover { background:var(--bg); }
 .cswatch { width:14px; height:14px; border-radius:4px; flex-shrink:0; }
 .crit-btn[data-c="A"] .cswatch{background:var(--ca);} .crit-btn[data-c="A"].on{border-color:var(--ca);background:var(--ca-bg);}
@@ -56,8 +56,8 @@ header { background:var(--surface); border-bottom:3px solid var(--border); paddi
 .grade-btn:hover{border-color:#999;color:var(--text);} .grade-btn.on{background:var(--surface);border-color:#888;color:var(--text);font-weight:900;}
 .tbox{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0;color:transparent;transition:all .15s;}
 .grade-btn.on .tbox{background:var(--text);border-color:var(--text);color:#fff;}
-.lvl-pills{display:flex;flex-direction:column;gap:5px;}
-.lvl-pill{padding:9px 13px;border-radius:10px;border:2px solid transparent;background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;font-family:'Nunito',sans-serif;color:var(--muted);transition:all .15s;text-align:left;width:100%;}
+.lvl-pills{display:flex;flex-direction:column;gap:4px;}
+.lvl-pill{padding:7px 12px;border-radius:10px;border:2px solid transparent;background:var(--bg);cursor:pointer;font-size:13px;font-weight:700;font-family:'Nunito',sans-serif;color:var(--muted);transition:all .15s;text-align:left;width:100%;}
 .lvl-pill:hover{border-color:var(--border);}
 .lvl-pill.on[data-lv="1"]{background:var(--l1-bg);border-color:var(--l1-bd);color:var(--l1);font-weight:900;}
 .lvl-pill.on[data-lv="2"]{background:var(--l2-bg);border-color:var(--l2-bd);color:var(--l2);font-weight:900;}
@@ -68,7 +68,6 @@ header { background:var(--surface); border-bottom:3px solid var(--border); paddi
 .vbtn:hover{color:var(--text);} .vbtn.on{background:var(--surface);color:var(--text);box-shadow:0 2px 6px rgba(0,0,0,.1);}
 
 /* MAIN */
-.main{padding:30px 36px;}
 .crumb{font-size:14px;font-weight:700;color:var(--dim);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
 .crumb strong{color:var(--text);font-weight:900;} .crumb-sep{color:var(--border);}
 .sec-hdr{margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid var(--border);}
@@ -217,7 +216,7 @@ tbody td.td-lv4{background:var(--l4-bg-tbl);}
 
 /* PROGRESSION MODAL */
 .prog-modal{max-width:900px;}
-.prog-selectors{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:28px;}
+.prog-selectors{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:28px;}
 .prog-sel-wrap{display:flex;flex-direction:column;gap:6px;}
 .prog-sel-label{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);}
 .prog-sel{padding:10px 36px 10px 14px;border-radius:12px;border:2.5px solid var(--border);background:var(--bg);font-size:14px;font-weight:800;color:var(--text);cursor:pointer;font-family:'Nunito',sans-serif;appearance:none;width:100%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;}
@@ -404,7 +403,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
 ═══════════════════════════════════════ */
 
 /* Top-level mode switcher */
-.mode-bar{background:var(--surface);border-bottom:3px solid var(--border);display:flex;gap:0;padding:0 36px;}
+.mode-bar{background:var(--surface);border-bottom:3px solid var(--border);display:flex;gap:0;padding:0 36px;flex-shrink:0;}
 .mode-tab{padding:14px 24px;border:none;background:transparent;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--muted);border-bottom:4px solid transparent;margin-bottom:-3px;transition:all .15s;display:flex;align-items:center;gap:8px;}
 .mode-tab:hover{color:var(--text);}
 .mode-tab.on{color:var(--text);border-bottom-color:var(--l4);}
@@ -413,7 +412,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
 .panel{display:none;}
 .panel.on{display:block;}
 .panel-flex{display:none;}
-.panel-flex.on{display:flex;}
+.panel-flex.on{display:flex;flex:1;overflow:hidden;}
 
 /* ── LEARN LAYOUT ── */
 .learn-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 122px);}
@@ -544,7 +543,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
   <div class="modal cl-modal">
     <div class="modal-hdr">
       <div>
-        <div class="modal-title">&#9989; My Challenge Checklist</div>
+        <div class="modal-title">&#9989; Success Criteria Checklist</div>
         <div class="modal-sub" id="clModalSub">Set your goal and choose your game!</div>
       </div>
       <button class="close-x" id="clClose">X</button>
@@ -554,7 +553,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <!-- Step 1: Choose criterion -->
       <div class="cl-step active" id="clStep1">
         <div class="cl-step-hdr">
-          <div class="cl-step-num">Step 1 of 4</div>
+          <div class="cl-step-num">Step 1 of 5</div>
           <div class="cl-step-title">Which Criterion are you working on?</div>
           <div class="cl-step-sub">Pick the one your teacher has assigned.</div>
         </div>
@@ -566,7 +565,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
         </div>
         <div class="cl-nav">
           <div></div>
-          <div class="cl-dots"><div class="cl-dot on"></div><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot"></div></div>
+          <div class="cl-dots"><div class="cl-dot on"></div><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot"></div></div>
           <button class="cl-nav-next" id="clNext1" disabled onclick="clGoStep(2)">Next &#8594;</button>
         </div>
       </div>
@@ -574,14 +573,14 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <!-- Step 2: Choose strand -->
       <div class="cl-step" id="clStep2">
         <div class="cl-step-hdr">
-          <div class="cl-step-num">Step 2 of 4</div>
+          <div class="cl-step-num">Step 2 of 5</div>
           <div class="cl-step-title">Which Strand are you focusing on?</div>
           <div class="cl-step-sub">Pick the specific skill area for this task.</div>
         </div>
         <div class="cl-choices" id="clStrandChoices" style="grid-template-columns:1fr 1fr;"></div>
         <div class="cl-nav">
           <button class="cl-nav-back" onclick="clGoStep(1)">&#8592; Back</button>
-          <div class="cl-dots"><div class="cl-dot"></div><div class="cl-dot on"></div><div class="cl-dot"></div><div class="cl-dot"></div></div>
+          <div class="cl-dots"><div class="cl-dot"></div><div class="cl-dot on"></div><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot"></div></div>
           <button class="cl-nav-next" id="clNext2" disabled onclick="clGoStep(3)">Next &#8594;</button>
         </div>
       </div>
@@ -589,7 +588,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <!-- Step 3: Choose level + grade -->
       <div class="cl-step" id="clStep3">
         <div class="cl-step-hdr">
-          <div class="cl-step-num">Step 3 of 4</div>
+          <div class="cl-step-num">Step 3 of 5</div>
           <div class="cl-step-title">What level are you aiming for?</div>
           <div class="cl-step-sub">Challenge yourself! Higher levels need more depth and evidence.</div>
         </div>
@@ -599,17 +598,36 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
           <div class="cl-choice" data-val="3" data-lv="3"><div class="cl-choice-icon">&#128640;</div><div class="cl-choice-name">5-6</div><div class="cl-choice-sub">Exceeding</div></div>
           <div class="cl-choice" data-val="4" data-lv="4"><div class="cl-choice-icon">&#127942;</div><div class="cl-choice-name">7-8</div><div class="cl-choice-sub">Excelling</div></div>
         </div>
-        <div style="margin-top:18px;">
-          <div class="prog-sel-label" style="margin-bottom:8px;">Your grade level:</div>
-          <select class="prog-sel" id="clGrade" style="max-width:280px;">
-            <option value="MYP1">MYP 1 - Grade 6</option>
-            <option value="MYP3">MYP 3 - Grades 7 and 8</option>
-            <option value="MYP5" selected>MYP 5 - Grades 9 and 10</option>
-          </select>
+        <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div>
+            <div class="prog-sel-label" style="margin-bottom:8px;">Your grade level:</div>
+            <select class="prog-sel" id="clGrade">
+              <option value="MYP1">MYP 1 - Grade 6</option>
+              <option value="MYP3">MYP 3 - Grades 7 and 8</option>
+              <option value="MYP5" selected>MYP 5 - Grades 9 and 10</option>
+            </select>
+          </div>
+          <div>
+            <div class="prog-sel-label" style="margin-bottom:8px;">Your unit:</div>
+            <select class="prog-sel" id="clUnit">
+              <option value="">Select your unit...</option>
+              <option value="MYP1-PD-desk-organizer">MYP 1 - Desk Organizers (Product)</option>
+              <option value="MYP1-DD-scratch">MYP 1 - Educational Games with Scratch (Digital)</option>
+              <option value="MYP3-PD-clock">MYP 3 - Upcycled Clock (Product)</option>
+              <option value="MYP3-DD-home">MYP 3 - Calamity-Proof Sustainable Homes (Digital)</option>
+              <option value="MYP3-PD-f1">MYP 3 - F1 Car Designs using Onshape (Product)</option>
+              <option value="MYP3-DD-capcut">MYP 3 - Content Creation with CapCut (Digital)</option>
+              <option value="MYP5-PD-device-station">MYP 5 - Device Station (Product)</option>
+              <option value="MYP5-DD-endstar">MYP 5 - Advanced Game Dev with Endstar (Digital)</option>
+              <option value="MYP5-PD-assistive">MYP 5 - Assistive Device for the Elderly (Product)</option>
+              <option value="MYP5-DD-python">MYP 5 - App Development with Python (Digital)</option>
+              <option value="SDGs">Designing for a Better Future (SDGs)</option>
+            </select>
+          </div>
         </div>
         <div class="cl-nav">
           <button class="cl-nav-back" onclick="clGoStep(2)">&#8592; Back</button>
-          <div class="cl-dots"><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot on"></div><div class="cl-dot"></div></div>
+          <div class="cl-dots"><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot on"></div><div class="cl-dot"></div><div class="cl-dot"></div></div>
           <button class="cl-nav-next" id="clNext3" disabled onclick="clGoStep(4)">Next &#8594;</button>
         </div>
       </div>
@@ -617,7 +635,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <!-- Step 4: Choose game -->
       <div class="cl-step" id="clStep4">
         <div class="cl-step-hdr">
-          <div class="cl-step-num">Step 4 of 4</div>
+          <div class="cl-step-num">Step 4 of 5</div>
           <div class="cl-step-title">Pick your reward game!</div>
           <div class="cl-step-sub">Every time you tick a task, your game will progress!</div>
         </div>
@@ -628,7 +646,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
         </div>
         <div class="cl-nav">
           <button class="cl-nav-back" onclick="clGoStep(3)">&#8592; Back</button>
-          <div class="cl-dots"><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot on"></div></div>
+          <div class="cl-dots"><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot"></div><div class="cl-dot on"></div><div class="cl-dot"></div></div>
           <button class="cl-nav-next" id="clNext4" disabled onclick="clGenerate()">Generate my Checklist! &#127775;</button>
         </div>
       </div>
@@ -636,9 +654,10 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <!-- Step 5: The actual checklist -->
       <div class="cl-step" id="clStep5">
         <div class="cl-output" id="clOutput"></div>
+        <div id="clProgressCheckResult" style="display:none;margin:16px 0;padding:18px 22px;border-radius:14px;border:2.5px solid var(--l4-bd);background:var(--l4-bg);font-size:16px;font-weight:800;color:var(--l4);line-height:1.6;"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:2px solid var(--border);margin-top:8px;">
           <button class="cl-reset" onclick="clGoStep(1)">&#8592; Start Over</button>
-          <button class="cl-nav-next" onclick="clPrint()" style="background:var(--muted);">&#128438; Print / Save</button>
+          <button class="cl-nav-next" onclick="clProgressCheck()" style="background:var(--l4);">&#128200; Progress Check</button>
         </div>
       </div>
 
@@ -672,7 +691,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
   <div class="modal prog-modal">
     <div class="modal-hdr">
       <div>
-        <div class="modal-title">See the Progression</div>
+        <div class="modal-title">Design Progression</div>
         <div class="modal-sub">Watch how the expectation grows from Level 1-2 all the way to 7-8.</div>
       </div>
       <button class="close-x" id="progClose">X</button>
@@ -695,6 +714,23 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
             <option value="MYP5" selected>MYP 5 - Grades 9 and 10</option>
           </select>
         </div>
+        <div class="prog-sel-wrap">
+          <div class="prog-sel-label">Unit (optional)</div>
+          <select class="prog-sel" id="progUnit">
+            <option value="">All units (generic examples)</option>
+            <option value="MYP1-PD-desk-organizer">MYP 1 - Desk Organizers</option>
+            <option value="MYP1-DD-scratch">MYP 1 - Scratch Games</option>
+            <option value="MYP3-PD-clock">MYP 3 - Upcycled Clock</option>
+            <option value="MYP3-DD-home">MYP 3 - Sustainable Homes</option>
+            <option value="MYP3-PD-f1">MYP 3 - F1 Car Design</option>
+            <option value="MYP3-DD-capcut">MYP 3 - Content Creation</option>
+            <option value="MYP5-PD-device-station">MYP 5 - Device Station</option>
+            <option value="MYP5-DD-endstar">MYP 5 - Endstar Game Dev</option>
+            <option value="MYP5-PD-assistive">MYP 5 - Assistive Device</option>
+            <option value="MYP5-DD-python">MYP 5 - Python App</option>
+            <option value="SDGs">SDGs - Better Future</option>
+          </select>
+        </div>
       </div>
       <div id="progTrack"></div>
     </div>
@@ -705,13 +741,13 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
   <div class="hdr-left">
     <div class="hdr-icon">&#128208;</div>
     <div>
-      <div class="hdr-title">MYP Design Rubric Explorer</div>
-      <div class="hdr-sub">Hover the coloured words to learn what they mean!</div>
+      <div class="hdr-title">MYP Design Explorer</div>
+      <div class="hdr-sub">MYP Design Explorer is your ultimate companion for mastering the IB MYP Design Cycle.</div>
     </div>
   </div>
   <div class="hdr-btns">
-    <button class="check-btn" id="check-btn-hdr">&#9989; My Checklist</button>
-    <button class="prog-btn" id="progBtn">&#128200; See the Progression</button>
+    <button class="check-btn" id="check-btn-hdr">&#9989; Success Criteria Checklist</button>
+    <button class="prog-btn" id="progBtn">&#128200; Design Progression</button>
     <button class="diff-btn" id="diffBtn">&#128260; Compare Command Terms</button>
   </div>
 </header>
@@ -724,7 +760,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
 
 <!-- RUBRIC PANEL -->
 <div class="panel-flex on" id="panelRubric" style="flex-direction:row;">
-<div class="layout" style="width:100%;display:contents;">
+<div class="layout" style="width:100%;flex:1;overflow:hidden;">
   <aside class="sidebar">
     <div>
       <div class="flabel">Criterion</div>
@@ -741,7 +777,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <button class="grade-btn on" data-g="MYP5"><span class="tbox">v</span>MYP 5 - Grades 9 and 10</button>
     </div>
     <div>
-      <div class="flabel">Achievement Level</div>
+      <div class="flabel">Success Criteria</div>
       <div class="lvl-pills">
         <button class="lvl-pill on" data-lv="1">1-2 Not Yet There</button>
         <button class="lvl-pill on" data-lv="2">3-4 Meeting</button>
@@ -751,11 +787,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
     </div>
     <div>
       <div class="flabel">View</div>
-      <div class="vtoggle">
-        <button class="vbtn on" data-v="grid">Grid</button>
-        <button class="vbtn" data-v="table">Table</button>
-        <button class="vbtn" data-v="compare">Compare</button>
-      </div>
+      <div style="padding:9px 13px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);font-size:14px;font-weight:900;color:var(--text);text-align:center;">&#128203; Table View</div>
     </div>
   </aside>
   <main class="main" id="mainArea"></main>
@@ -793,7 +825,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <div class="learn-art-hdr">
         <div class="learn-art-badge">&#9851; Foundations</div>
         <div class="learn-art-title">The MYP Design Cycle</div>
-        <div class="learn-art-sub">The Design Cycle is the four-step process every MYP Design student follows to solve real problems — it is not just a sequence, it is a way of thinking.</div>
+        <div class="learn-art-sub">The Design Cycle is the four-step process every MYP Design student follows to solve real problems  -  it is not just a sequence, it is a way of thinking.</div>
       </div>
 
       <!-- SVG cycle diagram -->
@@ -847,29 +879,29 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <div class="learn-cards cols2">
         <div class="learn-card ca">
           <div class="learn-card-icon">&#128269;</div>
-          <div class="learn-card-title">Criterion A — Inquiring &amp; Analyzing</div>
+          <div class="learn-card-title">Criterion A  -  Inquiring &amp; Analyzing</div>
           <div class="learn-card-body">You research the problem deeply. Who has the problem? Why does it exist? What already exists that tries to solve it? You build a design brief that justifies why your solution is needed.</div>
         </div>
         <div class="learn-card cb">
           <div class="learn-card-icon">&#128161;</div>
-          <div class="learn-card-title">Criterion B — Developing Ideas</div>
-          <div class="learn-card-body">You create a detailed specification of what your solution must do, then design multiple possible solutions. You choose the best one and justify why — always referring back to your specification.</div>
+          <div class="learn-card-title">Criterion B  -  Developing Ideas</div>
+          <div class="learn-card-body">You create a detailed specification of what your solution must do, then design multiple possible solutions. You choose the best one and justify why  -  always referring back to your specification.</div>
         </div>
         <div class="learn-card cc">
           <div class="learn-card-icon">&#128736;</div>
-          <div class="learn-card-title">Criterion C — Creating the Solution</div>
+          <div class="learn-card-title">Criterion C  -  Creating the Solution</div>
           <div class="learn-card-body">You plan your making process, then build your solution using the correct techniques. You document changes you make along the way and why you made them.</div>
         </div>
         <div class="learn-card cd">
           <div class="learn-card-icon">&#128203;</div>
-          <div class="learn-card-title">Criterion D — Evaluating</div>
-          <div class="learn-card-body">You test your finished solution against your specification using real data. You evaluate honestly — both successes and failures — and explain how it could be improved and what impact it has.</div>
+          <div class="learn-card-title">Criterion D  -  Evaluating</div>
+          <div class="learn-card-body">You test your finished solution against your specification using real data. You evaluate honestly  -  both successes and failures  -  and explain how it could be improved and what impact it has.</div>
         </div>
       </div>
 
       <div class="learn-callout tip">
         <div class="lc-lbl">&#128161; Key Idea</div>
-        <div class="lc-txt">The cycle does <strong>not</strong> have to go in a straight line. Real designers go backwards — you might discover during <strong>making</strong> that your <strong>specification</strong> needs updating, or during <strong>testing</strong> that you need to <strong>redesign</strong> part of your solution. That's not failure — that's good design thinking!</div>
+        <div class="lc-txt">The cycle does <strong>not</strong> have to go in a straight line. Real designers go backwards  -  you might discover during <strong>making</strong> that your <strong>specification</strong> needs updating, or during <strong>testing</strong> that you need to <strong>redesign</strong> part of your solution. That's not failure  -  that's good design thinking!</div>
       </div>
     </div>
 
@@ -882,14 +914,14 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       </div>
 
       <div class="dp-grid">
-        <div class="dp-card"><div class="dp-num">Principle 01</div><div class="dp-name">&#129505; Form follows Function</div><div class="dp-body">A product's shape should be driven by what it needs to DO, not just how it looks. Beauty comes from a design that works perfectly.</div><div class="dp-example">A hammer has a heavy metal head and a long grip — not because it looks good, but because that shape delivers the most force.</div></div>
+        <div class="dp-card"><div class="dp-num">Principle 01</div><div class="dp-name">&#129505; Form follows Function</div><div class="dp-body">A product's shape should be driven by what it needs to DO, not just how it looks. Beauty comes from a design that works perfectly.</div><div class="dp-example">A hammer has a heavy metal head and a long grip  -  not because it looks good, but because that shape delivers the most force.</div></div>
         <div class="dp-card"><div class="dp-num">Principle 02</div><div class="dp-name">&#128106; User-Centred Design</div><div class="dp-body">Design for the real human who will use it. Understand their needs, abilities, and limitations before deciding what your product looks or works like.</div><div class="dp-example">A water bottle designed for elderly users has a wider grip and a no-squeeze lid because small hands and reduced strength were considered first.</div></div>
-        <div class="dp-card"><div class="dp-num">Principle 03</div><div class="dp-name">&#9854; Ergonomics</div><div class="dp-body">Products must fit the human body comfortably and safely. Ergonomics considers size, reach, strength, and comfort so people can use products without injury or strain.</div><div class="dp-example">A keyboard with a slight upward curve reduces wrist strain — designed around how human wrists naturally rest.</div></div>
-        <div class="dp-card"><div class="dp-num">Principle 04</div><div class="dp-name">&#9855; Universal Design</div><div class="dp-body">Design so that as many people as possible can use it — regardless of age, ability, or disability. Good universal design benefits everyone, not just those with special needs.</div><div class="dp-example">Kerb cuts in pavements were designed for wheelchair users but are used constantly by cyclists, parents with prams, and delivery workers.</div></div>
+        <div class="dp-card"><div class="dp-num">Principle 03</div><div class="dp-name">&#9854; Ergonomics</div><div class="dp-body">Products must fit the human body comfortably and safely. Ergonomics considers size, reach, strength, and comfort so people can use products without injury or strain.</div><div class="dp-example">A keyboard with a slight upward curve reduces wrist strain  -  designed around how human wrists naturally rest.</div></div>
+        <div class="dp-card"><div class="dp-num">Principle 04</div><div class="dp-name">&#9855; Universal Design</div><div class="dp-body">Design so that as many people as possible can use it  -  regardless of age, ability, or disability. Good universal design benefits everyone, not just those with special needs.</div><div class="dp-example">Kerb cuts in pavements were designed for wheelchair users but are used constantly by cyclists, parents with prams, and delivery workers.</div></div>
         <div class="dp-card"><div class="dp-num">Principle 05</div><div class="dp-name">&#127807; Sustainability</div><div class="dp-body">Design with the full lifecycle in mind: where do the materials come from? How much energy does making it use? What happens when it breaks or is no longer needed?</div><div class="dp-example">A modular product where only broken parts are replaced instead of the whole product reduces waste dramatically.</div></div>
-        <div class="dp-card"><div class="dp-num">Principle 06</div><div class="dp-name">&#128396; Less is More (Minimalism)</div><div class="dp-body">Remove everything that isn't necessary. Simpler products are usually easier to use, cheaper to make, and more reliable. Every feature should earn its place.</div><div class="dp-example">The original iPod had one button and a scroll wheel — most music players at the time had 30+ buttons. Apple's simplicity won.</div></div>
+        <div class="dp-card"><div class="dp-num">Principle 06</div><div class="dp-name">&#128396; Less is More (Minimalism)</div><div class="dp-body">Remove everything that isn't necessary. Simpler products are usually easier to use, cheaper to make, and more reliable. Every feature should earn its place.</div><div class="dp-example">The original iPod had one button and a scroll wheel  -  most music players at the time had 30+ buttons. Apple's simplicity won.</div></div>
         <div class="dp-card"><div class="dp-num">Principle 07</div><div class="dp-name">&#9993; Clear Communication</div><div class="dp-body">A product should communicate how it works without instructions. Buttons should look pressable, handles should invite gripping, and colours should signal function.</div><div class="dp-example">A red button on a machine signals danger/stop. A green button signals start/safe. This is colour language that users already know.</div></div>
-        <div class="dp-card"><div class="dp-num">Principle 08</div><div class="dp-name">&#128504; Iteration</div><div class="dp-body">No design is perfect on the first try. Great designers prototype, test, get feedback, and improve — repeatedly. Each version is better than the last.</div><div class="dp-example">Dyson built over 5,000 prototypes of his vacuum cleaner before reaching the final version that worked perfectly.</div></div>
+        <div class="dp-card"><div class="dp-num">Principle 08</div><div class="dp-name">&#128504; Iteration</div><div class="dp-body">No design is perfect on the first try. Great designers prototype, test, get feedback, and improve  -  repeatedly. Each version is better than the last.</div><div class="dp-example">Dyson built over 5,000 prototypes of his vacuum cleaner before reaching the final version that worked perfectly.</div></div>
       </div>
 
       <div class="learn-callout good">
@@ -903,11 +935,11 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <div class="learn-art-hdr">
         <div class="learn-art-badge">&#128269; Foundations</div>
         <div class="learn-art-title">ACCESS FM</div>
-        <div class="learn-art-sub">ACCESS FM is a framework for analysing existing products. It gives you a structured way to evaluate ANY product from multiple angles — and is especially powerful in Criterion A Strand 3.</div>
+        <div class="learn-art-sub">ACCESS FM is a framework for analysing existing products. It gives you a structured way to evaluate ANY product from multiple angles - and is especially powerful in Criterion A Strand 3.</div>
       </div>
       <div class="learn-callout tip">
         <div class="lc-lbl">&#128161; What is ACCESS FM?</div>
-        <div class="lc-txt">ACCESS FM stands for <strong>Aesthetics, Cost, Customer, Environment, Safety, Size, Function, and Materials</strong>. Using all 8 headings ensures you analyse a product deeply — not just its appearance or its purpose, but all the factors that make it succeed or fail.</div>
+        <div class="lc-txt">ACCESS FM stands for <strong>Aesthetics, Cost, Customer, Environment, Safety, Size, Function, and Materials</strong>. Using all 8 headings ensures you analyse a product deeply - not just its appearance or its purpose, but all the factors that make it succeed or fail.</div>
       </div>
       <table class="accessfm-table">
         <thead><tr><th>Letter</th><th>Stands for</th><th>What to consider</th><th>Example question</th></tr></thead>
@@ -924,7 +956,59 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       </table>
       <div class="learn-callout good">
         <div class="lc-lbl">&#128203; How to Use ACCESS FM in an Assessment</div>
-        <div class="lc-txt">Don't just list facts. For each letter, <strong>evaluate</strong>: say what you found AND what that means for your own design. Example: "The existing product uses ABS plastic (Materials) — this is lightweight and mouldable, which suits a portable product. However it is not recyclable, which is a weakness I will address by using recycled HDPE in my design." That is analysis, not just description.</div>
+        <div class="lc-txt">Don't just list facts. For each letter, <strong>evaluate</strong>: say what you found AND what that means for your own design. Example: "The existing product uses ABS plastic (Materials) - this is lightweight and mouldable, which suits a portable product. However it is not recyclable, which is a weakness I will address by using recycled HDPE in my design." That is analysis, not just description.</div>
+      </div>
+
+      <div class="learn-h2">&#128300; Using ACCESS FM to Write Survey Questions</div>
+      <div class="learn-prose">ACCESS FM is not just for analysing existing products. You can use each category to design powerful survey questions that justify your chosen design. Here is how each category can become a survey question to validate your design decisions:</div>
+      <table class="accessfm-table">
+        <thead><tr><th>Category</th><th>Survey Question Example</th><th>How it justifies your design</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Aesthetics</strong></td><td>"Which colour option would you prefer for this product: natural wood finish, white, or black?" (circle one)</td><td>Proves your colour/style choices are based on user preference, not guesswork.</td></tr>
+          <tr><td><strong>Cost</strong></td><td>"What is the maximum you would pay for this product? Under $10 / $10-20 / $20-30 / Over $30"</td><td>Justifies your material budget and price point in your specification.</td></tr>
+          <tr><td><strong>Customer</strong></td><td>"How often do you experience [the problem]? Daily / A few times a week / Rarely / Never"</td><td>Proves who needs the product and how urgently they need it.</td></tr>
+          <tr><td><strong>Environment</strong></td><td>"How important is it that this product uses sustainable/recycled materials? Rate 1 (not important) to 5 (very important)"</td><td>Justifies sustainability decisions in your material specification.</td></tr>
+          <tr><td><strong>Safety</strong></td><td>"Do you have any concerns about safety when using [similar products]? If yes, describe:"</td><td>Provides evidence for safety-related specification criteria.</td></tr>
+          <tr><td><strong>Size</strong></td><td>"Where would you primarily store/use this product? On a desk / In a bag / On a shelf / Other"</td><td>Justifies your dimension and portability specification criteria.</td></tr>
+          <tr><td><strong>Function</strong></td><td>"Which features are most important to you? Rank 1-5: [list features]"</td><td>Directly justifies which functions you include in your specification.</td></tr>
+          <tr><td><strong>Materials</strong></td><td>"What material quality do you prefer: lightweight plastic / solid wood / metal / recycled cardboard?"</td><td>Justifies your material choices with user-validated evidence.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="learn-h2">&#127919; ACCESS FM by Unit</div>
+      <div class="learn-prose">Here are examples of how to apply ACCESS FM analysis for each unit:</div>
+
+      <div class="learn-cards cols2">
+        <div class="learn-card ca">
+          <div class="learn-card-icon">&#128196;</div>
+          <div class="learn-card-title">Desk Organizer (MYP 1 Product)</div>
+          <div class="learn-card-body"><strong>Aesthetics:</strong> Does the colour match a student's desk environment?<br><strong>Cost:</strong> Can it be made from materials under $5?<br><strong>Customer:</strong> Designed for Grade 6 students aged 11-12.<br><strong>Function:</strong> Can it hold pens, rulers, and a tablet?<br><strong>Size:</strong> Fits on a standard school desk (max 30cm wide).<br><strong>Materials:</strong> Cardboard, wood, or recycled plastic?</div>
+        </div>
+        <div class="learn-card cb">
+          <div class="learn-card-icon">&#128187;</div>
+          <div class="learn-card-title">Scratch Game (MYP 1 Digital)</div>
+          <div class="learn-card-body"><strong>Aesthetics:</strong> Are the sprites visually engaging for Grade 6 students?<br><strong>Customer:</strong> Designed for 11-12 year olds - is the difficulty appropriate?<br><strong>Function:</strong> Does the game teach the intended concept effectively?<br><strong>Safety:</strong> Is the content age-appropriate and free from disturbing elements?<br><strong>Cost:</strong> Free to develop and free to play - key advantage to highlight.</div>
+        </div>
+        <div class="learn-card cc">
+          <div class="learn-card-icon">&#9200;</div>
+          <div class="learn-card-title">Upcycled Clock (MYP 3 Product)</div>
+          <div class="learn-card-body"><strong>Materials:</strong> What waste materials are being repurposed (vinyl, tin, wood)?<br><strong>Environment:</strong> Does using salvaged materials reduce waste vs buying new?<br><strong>Function:</strong> Does the clock mechanism keep accurate time?<br><strong>Aesthetics:</strong> Does the upcycled material create an interesting visual?<br><strong>Safety:</strong> Are there sharp edges from cutting or drilling?</div>
+        </div>
+        <div class="learn-card cd">
+          <div class="learn-card-icon">&#127968;</div>
+          <div class="learn-card-title">Sustainable Home (MYP 3 Digital)</div>
+          <div class="learn-card-body"><strong>Environment:</strong> Does the design minimise energy use and carbon footprint?<br><strong>Safety:</strong> Are there emergency exits and disaster-resistant structural features?<br><strong>Customer:</strong> Who lives in the home - family size, accessibility needs?<br><strong>Function:</strong> Does the floor plan facilitate daily living efficiently?<br><strong>Size:</strong> Are room dimensions proportional and liveable?</div>
+        </div>
+        <div class="learn-card lv3">
+          <div class="learn-card-icon">&#127947;</div>
+          <div class="learn-card-title">F1 Car (MYP 3 Product)</div>
+          <div class="learn-card-body"><strong>Aesthetics:</strong> Does the livery and body shape look like a competitive F1 car?<br><strong>Function:</strong> Is the aerodynamic shape optimised for downforce and speed?<br><strong>Materials:</strong> Does the chosen material balance weight and strength?<br><strong>Size:</strong> Does the model meet competition regulations for scale?<br><strong>Cost:</strong> Does the design fit within the materials budget?</div>
+        </div>
+        <div class="learn-card lv4">
+          <div class="learn-card-icon">&#128247;</div>
+          <div class="learn-card-title">Assistive Device (MYP 5 Product)</div>
+          <div class="learn-card-body"><strong>Customer:</strong> Designed for elderly users - considers reduced grip strength and dexterity.<br><strong>Safety:</strong> No sharp edges, stable, will not tip or fall during use.<br><strong>Function:</strong> Solves the specific daily challenge identified in research.<br><strong>Ergonomics (Size):</strong> Handles, buttons, and interfaces sized for elderly hands.<br><strong>Materials:</strong> Non-toxic, washable, durable materials appropriate for daily use.</div>
+        </div>
       </div>
     </div>
 
@@ -933,7 +1017,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <div class="learn-art-hdr">
         <div class="learn-art-badge">&#128202; Research Skills</div>
         <div class="learn-art-title">Primary vs Secondary Research</div>
-        <div class="learn-art-sub">Understanding the difference between primary and secondary research is essential for Criterion A. Both types have strengths and weaknesses — and strong students use both.</div>
+        <div class="learn-art-sub">Understanding the difference between primary and secondary research is essential for Criterion A. Both types have strengths and weaknesses  -  and strong students use both.</div>
       </div>
       <div class="learn-cards cols2">
         <div class="learn-card lv3">
@@ -949,7 +1033,7 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       </div>
       <div class="learn-h2">&#128300; How to Write a Good Survey (Primary Research)</div>
       <div class="learn-cards cols2">
-        <div class="learn-card lv4"><div class="learn-card-icon">&#9989;</div><div class="learn-card-title">Good Survey Practices</div><div class="learn-card-body">Ask closed questions that give you data (numbers). Target the right people — your actual client group. Aim for at least 10-15 responses. Ask about needs and priorities, not just opinions. Include a Likert scale (1-5 ratings) for measurable data.</div></div>
+        <div class="learn-card lv4"><div class="learn-card-icon">&#9989;</div><div class="learn-card-title">Good Survey Practices</div><div class="learn-card-body">Ask closed questions that give you data (numbers). Target the right people  -  your actual client group. Aim for at least 10-15 responses. Ask about needs and priorities, not just opinions. Include a Likert scale (1-5 ratings) for measurable data.</div></div>
         <div class="learn-card lv1"><div class="learn-card-icon">&#10060;</div><div class="learn-card-title">Common Survey Mistakes</div><div class="learn-card-body">Asking leading questions: "Don't you think X is important?" Asking too many questions (respondents rush). Only surveying friends (biased sample). Not connecting findings to your design decisions. Collecting data but never analysing it.</div></div>
       </div>
     </div>
@@ -964,38 +1048,61 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
 
       <div class="learn-callout warn">
         <div class="lc-lbl">&#9888; Why Citing Matters in MYP</div>
-        <div class="lc-txt">The IB takes academic integrity seriously. Presenting someone else's work or data as your own — even accidentally — is plagiarism. Citing your sources is the simplest way to protect yourself and show the examiner that your research is genuine.</div>
+        <div class="lc-txt">The IB takes academic integrity seriously. Presenting someone else's work or data as your own - even accidentally - is plagiarism. Citing your sources is the simplest way to protect yourself and show the examiner that your research is genuine.</div>
       </div>
 
-      <div class="learn-h2">&#128209; Citation Formats</div>
-      <div class="learn-prose">MYP schools often use <strong>MLA</strong>, <strong>APA</strong>, or a simple author-date format. Check with your teacher which one your school uses. Here are examples of each for common source types:</div>
+      <!-- MLA Citation Generator -->
+      <div class="learn-h2">&#128279; MLA Citation Generator</div>
+      <div class="learn-prose">Paste a website URL below and generate a ready-to-use MLA citation for your design portfolio.</div>
+      <div style="background:var(--surface);border:2.5px solid var(--border);border-radius:16px;padding:22px;margin:16px 0;">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;margin-bottom:16px;">
+          <input type="url" id="citeUrlInput" placeholder="Paste website URL here (e.g. https://www.example.com/article)" style="padding:12px 16px;border-radius:12px;border:2.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;width:100%;background:var(--bg);color:var(--text);outline:none;" />
+          <button onclick="generateMLACite()" style="padding:12px 20px;border-radius:12px;border:none;background:var(--l4);color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap;">&#128218; Generate MLA</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+          <div>
+            <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:5px;">Author (optional)</div>
+            <input type="text" id="citeAuthor" placeholder="Last, First" style="padding:10px 14px;border-radius:10px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;width:100%;background:var(--bg);color:var(--text);outline:none;" />
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:5px;">Article/Page Title (optional)</div>
+            <input type="text" id="citeTitle" placeholder="e.g. History of Ergonomics" style="padding:10px 14px;border-radius:10px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;width:100%;background:var(--bg);color:var(--text);outline:none;" />
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:5px;">Year Published (optional)</div>
+            <input type="text" id="citeYear" placeholder="e.g. 2023" style="padding:10px 14px;border-radius:10px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;width:100%;background:var(--bg);color:var(--text);outline:none;" />
+          </div>
+        </div>
+        <div id="citeResult" style="display:none;"></div>
+        <div id="citeSaved" style="display:none;margin-top:14px;">
+          <div style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:8px;">&#128218; Your Saved Citations</div>
+          <div id="citeSavedList"></div>
+        </div>
+      </div>
 
-      <div class="learn-h3">Website</div>
-      <div class="cite-label">MLA Format</div>
+      <div class="learn-h2">&#128209; Citation Formats Reference</div>
+      <div class="learn-prose">MYP schools often use <strong>MLA</strong> format. Here are examples for common source types:</div>
+
+      <div class="learn-h3">Website (MLA)</div>
       <div class="cite-box">Author Last, First. "Article Title." Website Name, Day Month Year Published, URL. Accessed Day Month Year.
-<br><br>Example: Smith, John. "How Ergonomics Affects Product Design." Design Weekly, 12 March 2023, www.designweekly.com/ergonomics. Accessed 5 January 2024.</div>
-      <div class="cite-label">APA Format</div>
-      <div class="cite-box">Author Last, F. I. (Year, Month Day). Article title. Website Name. URL
-<br><br>Example: Smith, J. (2023, March 12). How ergonomics affects product design. Design Weekly. www.designweekly.com/ergonomics</div>
+<br><br>Smith, John. "How Ergonomics Affects Product Design." Design Weekly, 12 March 2023, www.designweekly.com/ergonomics. Accessed 5 January 2024.</div>
 
-      <div class="learn-h3">Book</div>
-      <div class="cite-label">MLA Format</div>
+      <div class="learn-h3">Book (MLA)</div>
       <div class="cite-box">Author Last, First. Title of Book. Publisher, Year.
-<br><br>Example: Norman, Donald. The Design of Everyday Things. Basic Books, 2013.</div>
+<br><br>Norman, Donald. The Design of Everyday Things. Basic Books, 2013.</div>
 
-      <div class="learn-h3">Image / Photo</div>
-      <div class="cite-label">MLA Format</div>
+      <div class="learn-h3">Image / Photo (MLA)</div>
       <div class="cite-box">Creator Last, First. "Image Title." Website Name, Year, URL.
-<br><br>Example: Jones, Alice. "Red Ergonomic Chair." Unsplash, 2022, unsplash.com/photos/abc123.</div>
+<br><br>Jones, Alice. "Red Ergonomic Chair." Unsplash, 2022, unsplash.com/photos/abc123.</div>
 
       <div class="learn-callout good">
         <div class="lc-lbl">&#128161; Quick Citation Tips</div>
         <div class="lc-txt">
-          <strong>Keep a citation list as you research</strong> — it is much harder to find sources again afterwards.<br>
-          <strong>Use a tool:</strong> Cite This For Me, NoodleTools, or MyBib.com generate citations automatically.<br>
+          <strong>Keep a citation list as you research</strong> - it is much harder to find sources again afterwards.<br>
+          <strong>Use a tool:</strong> The generator above, Cite This For Me, or MyBib.com generate citations automatically.<br>
           <strong>No author?</strong> Use the website or organisation name instead.<br>
           <strong>No date?</strong> Write "n.d." (no date) in its place.<br>
-          <strong>AI tools</strong> cannot be cited as sources — they generate text, not evidence.
+          <strong>AI tools</strong> cannot be cited as sources - they generate text, not evidence.
         </div>
       </div>
     </div>
@@ -1008,13 +1115,13 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
         <div class="learn-art-sub">A design specification is the list of things your product MUST do or be. Strong specifications are measurable, justified, and directly connected to your research. Weak ones are vague and untestable.</div>
       </div>
       <div class="learn-cards cols2">
-        <div class="learn-card lv1"><div class="learn-card-icon">&#10060;</div><div class="learn-card-title">Weak Specification</div><div class="learn-card-body">"The product must be good quality."<br><br>"The product should look nice."<br><br>"The product must be strong enough."<br><br>"The product should be affordable."<br><br>These are vague — you cannot test them or use them to judge whether your product succeeded.</div></div>
-        <div class="learn-card lv4"><div class="learn-card-icon">&#9989;</div><div class="learn-card-title">Strong Specification</div><div class="learn-card-body">"The product must hold a minimum load of 3kg without deformation — tested by load test."<br><br>"The product must cost no more than $12 in materials — verified by receipts."<br><br>"The product must fit inside a standard school locker (max 320 x 200 x 150mm)."<br><br>Each one is <strong>specific</strong>, <strong>measurable</strong>, and <strong>testable</strong>.</div></div>
+        <div class="learn-card lv1"><div class="learn-card-icon">&#10060;</div><div class="learn-card-title">Weak Specification</div><div class="learn-card-body">"The product must be good quality."<br><br>"The product should look nice."<br><br>"The product must be strong enough."<br><br>"The product should be affordable."<br><br>These are vague  -  you cannot test them or use them to judge whether your product succeeded.</div></div>
+        <div class="learn-card lv4"><div class="learn-card-icon">&#9989;</div><div class="learn-card-title">Strong Specification</div><div class="learn-card-body">"The product must hold a minimum load of 3kg without deformation  -  tested by load test."<br><br>"The product must cost no more than $12 in materials  -  verified by receipts."<br><br>"The product must fit inside a standard school locker (max 320 x 200 x 150mm)."<br><br>Each one is <strong>specific</strong>, <strong>measurable</strong>, and <strong>testable</strong>.</div></div>
       </div>
       <div class="learn-h2">&#128203; The 3-Part Specification Formula</div>
       <div class="learn-callout tip">
         <div class="lc-lbl">&#128161; Formula</div>
-        <div class="lc-txt"><strong>My product must [do/be WHAT] [to WHAT STANDARD/VALUE] — because [RESEARCH JUSTIFICATION].</strong><br><br>Example: "My product must be waterproof to at least IPX4 standard, tested by a 10-second spray test — because 82% of survey respondents rated waterproofing as essential."</div>
+        <div class="lc-txt"><strong>My product must [do/be WHAT] [to WHAT STANDARD/VALUE]  -  because [RESEARCH JUSTIFICATION].</strong><br><br>Example: "My product must be waterproof to at least IPX4 standard, tested by a 10-second spray test  -  because 82% of survey respondents rated waterproofing as essential."</div>
       </div>
       <div class="learn-h2">&#128300; Specification Categories</div>
       <div class="learn-cards cols3">
@@ -1031,18 +1138,29 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
     <div class="learn-section" id="sec-drawing">
       <div class="learn-art-hdr">
         <div class="learn-art-badge">&#9999; Design Skills</div>
-        <div class="learn-art-title">Design Drawing Types</div>
-        <div class="learn-art-sub">Different drawings communicate different things. Knowing which type to use — and when — makes your Criterion B work much stronger.</div>
+        <div class="learn-art-title">Design Drawing &amp; Digital Tools</div>
+        <div class="learn-art-sub">Different drawings communicate different things. Knowing which type to use - and when - makes your Criterion B work much stronger. Digital tools add another dimension of precision and creativity.</div>
       </div>
+
+      <div class="learn-h2">&#9997; Product Design Drawing Types</div>
       <div class="learn-cards cols2">
-        <div class="learn-card ca"><div class="learn-card-icon">&#9997;</div><div class="learn-card-title">Freehand Sketch</div><div class="learn-card-body">Quick, rough exploration drawings. Used when brainstorming design ideas. Not accurate but fast and useful for generating options. Always label key features.</div></div>
-        <div class="learn-card cb"><div class="learn-card-icon">&#128210;</div><div class="learn-card-title">Orthographic / Working Drawing</div><div class="learn-card-body">Precise, measured drawings showing front, side, and top views separately. Used in planning drawings. Includes real dimensions. Someone could build from this.</div></div>
-        <div class="learn-card cc"><div class="learn-card-icon">&#128207;</div><div class="learn-card-title">Isometric Drawing</div><div class="learn-card-body">A 3D view drawn on a grid at 30° angles. Shows height, width, and depth in one view. Great for showing what a product looks like without distortion.</div></div>
-        <div class="learn-card cd"><div class="learn-card-icon">&#128308;</div><div class="learn-card-title">Exploded View</div><div class="learn-card-body">Shows all the parts of a product separated out, like an explosion frozen in time. Used to show how parts fit together and what materials each part uses.</div></div>
+        <div class="learn-card ca"><div class="learn-card-icon">&#9997;</div><div class="learn-card-title">Freehand Sketch</div><div class="learn-card-body">Quick, rough exploration drawings. Used when brainstorming design ideas. Not accurate but fast and useful for generating options. Always label key features. Used in: Desk Organizers, Upcycled Clock, Assistive Device.</div></div>
+        <div class="learn-card cb"><div class="learn-card-icon">&#128210;</div><div class="learn-card-title">Orthographic / Working Drawing</div><div class="learn-card-body">Precise, measured drawings showing front, side, and top views separately. Used in planning drawings. Includes real dimensions. Someone could build from this. Essential for: Device Station, F1 Car (Onshape), Assistive Device.</div></div>
+        <div class="learn-card cc"><div class="learn-card-icon">&#128207;</div><div class="learn-card-title">Isometric Drawing</div><div class="learn-card-body">A 3D view drawn on a grid at 30 degree angles. Shows height, width, and depth in one view. Great for showing what a product looks like without distortion. Used for: Desk Organizers, Upcycled Clock.</div></div>
+        <div class="learn-card cd"><div class="learn-card-icon">&#128308;</div><div class="learn-card-title">Exploded View</div><div class="learn-card-body">Shows all the parts of a product separated out. Used to show how parts fit together and what materials each part uses. Key for: Device Station assembly, F1 Car components.</div></div>
       </div>
+
+      <div class="learn-h2">&#128187; Digital Design Tools</div>
+      <div class="learn-cards cols2">
+        <div class="learn-card lv3"><div class="learn-card-icon">&#127968;</div><div class="learn-card-title">HomeByMe (Floor Planning)</div><div class="learn-card-body">Used for: Calamity-Proof Sustainable Homes (MYP 3). Create 2D floor plans and 3D walkthroughs. Document: screenshots at each stage, room dimensions, notes on disaster-resistant features. Annotate: explain why each room is positioned where it is.</div></div>
+        <div class="learn-card lv4"><div class="learn-card-icon">&#9881;</div><div class="learn-card-title">Onshape (CAD Modelling)</div><div class="learn-card-body">Used for: F1 Car Designs (MYP 3). Create precision 3D models with exact measurements. Document: feature tree screenshots, design iterations. Annotate: explain aerodynamic choices, link dimensions to your specification criteria.</div></div>
+        <div class="learn-card lv2"><div class="learn-card-icon">&#127922;</div><div class="learn-card-title">Scratch (Game Design)</div><div class="learn-card-body">Used for: Educational Games (MYP 1 Digital). Visual block-based programming. Document: screenshots of sprite designs, stage backgrounds, and key code blocks. Annotate: explain how each mechanic teaches the intended concept.</div></div>
+        <div class="learn-card lv1"><div class="learn-card-icon">&#127909;</div><div class="learn-card-title">CapCut (Video/Media)</div><div class="learn-card-body">Used for: Content Creation (MYP 3 Digital). Non-linear video editor. Document: storyboard before editing, timeline screenshots during editing. Annotate: explain editing choices, transitions, and how they serve your communication goal.</div></div>
+      </div>
+
       <div class="learn-callout tip">
         <div class="lc-lbl">&#128161; Annotation is Everything</div>
-        <div class="lc-txt">A drawing without annotations is worth very little in MYP. <strong>Annotate</strong> means adding labels with explanations — not just "handle" but "ergonomic rubber grip — chosen because 80% of survey respondents rated grip comfort as their top priority." Every label should explain WHY, not just WHAT.</div>
+        <div class="lc-txt">A drawing without annotations is worth very little in MYP. <strong>Annotate</strong> means adding labels with explanations - not just "handle" but "ergonomic rubber grip - chosen because 80% of survey respondents rated grip comfort as their top priority." Every label should explain WHY, not just WHAT. This applies equally to digital screenshots and CAD models.</div>
       </div>
     </div>
 
@@ -1051,14 +1169,14 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <div class="learn-art-hdr">
         <div class="learn-art-badge">&#129520; Design Skills</div>
         <div class="learn-art-title">Materials &amp; Their Properties</div>
-        <div class="learn-art-sub">Choosing the right material is one of the most important design decisions. Every material has specific properties — and the best designers match material properties to the product's requirements.</div>
+        <div class="learn-art-sub">Choosing the right material is one of the most important design decisions. Every material has specific properties  -  and the best designers match material properties to the product's requirements.</div>
       </div>
       <div class="learn-cards cols3">
         <div class="learn-card"><div class="learn-card-icon">&#129522;</div><div class="learn-card-title">Hardwoods (e.g. oak, mahogany)</div><div class="learn-card-body">Strong, durable, attractive grain. Expensive. Used for furniture and high-quality products. Sustainable if FSC certified.</div></div>
         <div class="learn-card"><div class="learn-card-icon">&#127795;</div><div class="learn-card-title">Softwoods (e.g. pine, balsa)</div><div class="learn-card-body">Lightweight, easy to cut and shape, cheaper. Less durable than hardwood. Good for models and prototypes.</div></div>
         <div class="learn-card"><div class="learn-card-icon">&#9881;</div><div class="learn-card-title">Metals (e.g. steel, aluminium)</div><div class="learn-card-body">Strong, conductive, recyclable. Steel is very strong but heavy and rusts. Aluminium is lightweight, corrosion-resistant, but more expensive.</div></div>
         <div class="learn-card"><div class="learn-card-icon">&#129514;</div><div class="learn-card-title">Thermoplastics (e.g. ABS, PET)</div><div class="learn-card-body">Can be melted and reshaped repeatedly. Lightweight, mouldable. ABS is used in LEGO and 3D printing. PET is used in bottles. Most are recyclable.</div></div>
-        <div class="learn-card"><div class="learn-card-icon">&#127380;</div><div class="learn-card-title">Thermosets (e.g. epoxy, polyester resin)</div><div class="learn-card-body">Harden permanently when set — cannot be melted again. Very hard and chemical-resistant. Used in circuit boards and boat hulls. Cannot be recycled.</div></div>
+        <div class="learn-card"><div class="learn-card-icon">&#127380;</div><div class="learn-card-title">Thermosets (e.g. epoxy, polyester resin)</div><div class="learn-card-body">Harden permanently when set  -  cannot be melted again. Very hard and chemical-resistant. Used in circuit boards and boat hulls. Cannot be recycled.</div></div>
         <div class="learn-card"><div class="learn-card-icon">&#129525;</div><div class="learn-card-title">Textiles (e.g. cotton, nylon)</div><div class="learn-card-body">Flexible, can be woven or knitted. Cotton is natural and breathable. Nylon is synthetic, strong, and water-resistant. Used in bags, clothing, and soft products.</div></div>
       </div>
       <div class="learn-callout tip">
@@ -1078,11 +1196,20 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
         <div class="learn-card lv3"><div class="learn-card-icon">&#128200;</div><div class="learn-card-title">Quantitative Testing</div><div class="learn-card-body">Produces numbers. The best type for evaluating specifications because you can compare directly to your target values.<br><br><strong>Examples:</strong> Load tests (kg), dimension checks (mm), timing tests (seconds), cost receipts ($), user ratings (1-5 scale), cycle tests (number of uses).</div></div>
         <div class="learn-card lv2"><div class="learn-card-icon">&#128172;</div><div class="learn-card-title">Qualitative Testing</div><div class="learn-card-body">Produces opinions and descriptions. Useful for aesthetic and usability criteria that are hard to measure with numbers.<br><br><strong>Examples:</strong> User feedback forms, focus groups, expert reviews, peer evaluations. Best when combined with quantitative data.</div></div>
         <div class="learn-card lv4"><div class="learn-card-icon">&#128100;</div><div class="learn-card-title">User Testing</div><div class="learn-card-body">Giving your product to real users from your target audience and observing or recording their experience. Powerful for identifying usability issues the designer never noticed.<br><br><strong>Best practice:</strong> At least 5 users, standardised tasks, record both completion time and errors.</div></div>
-        <div class="learn-card lv1"><div class="learn-card-icon">&#128483;</div><div class="learn-card-title">Destructive Testing</div><div class="learn-card-body">Testing a product to failure — finding the point at which it breaks. Useful for durability and safety testing.<br><br><strong>Examples:</strong> Maximum load test, drop test, scratch resistance test, UV degradation test.</div></div>
+        <div class="learn-card lv1"><div class="learn-card-icon">&#128483;</div><div class="learn-card-title">Destructive Testing</div><div class="learn-card-body">Testing a product to failure - finding the point at which it breaks. Useful for durability and safety testing.<br><br><strong>Examples:</strong> Maximum load test, drop test, scratch resistance test, UV degradation test.</div></div>
       </div>
+
+      <div class="learn-h2">&#128187; Digital Product Testing Methods</div>
+      <div class="learn-cards cols2">
+        <div class="learn-card cc"><div class="learn-card-icon">&#127922;</div><div class="learn-card-title">Playtesting (Games)</div><div class="learn-card-body">Have 5+ players test your Scratch or Endstar game. Record: completion rate, time to complete each level, number of attempts before succeeding, and enjoyment rating (1-5). Ask: "Did you understand the rules immediately?" and "What was confusing?"</div></div>
+        <div class="learn-card cb"><div class="learn-card-icon">&#128187;</div><div class="learn-card-title">Usability Testing (Apps)</div><div class="learn-card-body">Give users your Python app or HomeByMe design and ask them to complete specific tasks without help. Record: time to complete, errors made, and confusion moments. This generates quantitative data (task completion time, error count) for your evaluation.</div></div>
+        <div class="learn-card ca"><div class="learn-card-icon">&#127909;</div><div class="learn-card-title">Audience Feedback (Media)</div><div class="learn-card-body">Show your CapCut content to 5-10 people from your target audience. Use a structured feedback form rating: clarity (1-5), engagement (1-5), visual quality (1-5), and message effectiveness (1-5). Calculate average scores for your evaluation.</div></div>
+        <div class="learn-card cd"><div class="learn-card-icon">&#128423;</div><div class="learn-card-title">Bug/Error Log (Software)</div><div class="learn-card-body">Keep a log of every bug found during testing: what triggered it, what happened, and how you fixed it. This shows your Criterion C Strand 3 change documentation AND generates evidence for your Criterion D evaluation.</div></div>
+      </div>
+
       <div class="learn-callout tip">
         <div class="lc-lbl">&#128161; The Golden Rule of Testing</div>
-        <div class="lc-txt">Every test must link back to a specific specification criterion. If you cannot say "this test measures Criterion X which has a target value of Y", the test is not useful for your evaluation. Design your tests BEFORE you build your solution — not after.</div>
+        <div class="lc-txt">Every test must link back to a specific specification criterion. If you cannot say "this test measures Criterion X which has a target value of Y", the test is not useful for your evaluation. Design your tests BEFORE you build your solution - not after.</div>
       </div>
     </div>
 
@@ -1091,27 +1218,27 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
       <div class="learn-art-hdr">
         <div class="learn-art-badge">&#129302; Using AI Wisely</div>
         <div class="learn-art-title">AI &amp; Academic Integrity</div>
-        <div class="learn-art-sub">AI tools like ChatGPT and Claude can be powerful learning assistants — or they can do your thinking for you, which is a problem. Here's how to stay on the right side of the line.</div>
+        <div class="learn-art-sub">AI tools like ChatGPT and Claude can be powerful learning assistants  -  or they can do your thinking for you, which is a problem. Here's how to stay on the right side of the line.</div>
       </div>
 
       <div class="learn-callout warn">
         <div class="lc-lbl">&#9888; The IB Rule</div>
-        <div class="lc-txt">The IB requires that all submitted work is <strong>your own</strong>. Using AI to generate your design brief, write your evaluation, or produce your analysis and submitting it as your own work is academic dishonesty — regardless of how good it looks. You must be able to explain and defend every sentence you submit.</div>
+        <div class="lc-txt">The IB requires that all submitted work is <strong>your own</strong>. Using AI to generate your design brief, write your evaluation, or produce your analysis and submitting it as your own work is academic dishonesty  -  regardless of how good it looks. You must be able to explain and defend every sentence you submit.</div>
       </div>
 
       <div class="learn-h2">&#9989; What AI Can Legitimately Help With</div>
       <div class="learn-cards cols2">
-        <div class="learn-card lv2"><div class="learn-card-icon">&#128218;</div><div class="learn-card-title">Understanding Concepts</div><div class="learn-card-body">Ask AI to explain a concept you don't understand. "Explain what ergonomics means with an example." This is like asking a teacher — you then write the explanation in your own words.</div></div>
+        <div class="learn-card lv2"><div class="learn-card-icon">&#128218;</div><div class="learn-card-title">Understanding Concepts</div><div class="learn-card-body">Ask AI to explain a concept you don't understand. "Explain what ergonomics means with an example." This is like asking a teacher  -  you then write the explanation in your own words.</div></div>
         <div class="learn-card lv2"><div class="learn-card-icon">&#128172;</div><div class="learn-card-title">Getting Feedback</div><div class="learn-card-body">Paste YOUR work and ask AI to give feedback. "What is weak about my justification?" Then YOU improve it. The work stays yours.</div></div>
         <div class="learn-card lv2"><div class="learn-card-icon">&#128300;</div><div class="learn-card-title">Brainstorming Ideas</div><div class="learn-card-body">Use AI to generate a list of possible ideas you could consider, then choose and develop your OWN idea. "What are 10 possible design ideas for a portable study organiser?" You still design and justify it yourself.</div></div>
-        <div class="learn-card lv2"><div class="learn-card-icon">&#128269;</div><div class="learn-card-title">Research Starting Points</div><div class="learn-card-body">Ask AI for directions to look: "What materials are commonly used in reusable water bottles?" — then go find and cite the actual sources yourself. AI is a pointer, not a source.</div></div>
+        <div class="learn-card lv2"><div class="learn-card-icon">&#128269;</div><div class="learn-card-title">Research Starting Points</div><div class="learn-card-body">Ask AI for directions to look: "What materials are commonly used in reusable water bottles?"  -  then go find and cite the actual sources yourself. AI is a pointer, not a source.</div></div>
       </div>
 
       <div class="learn-h2">&#10060; What You Cannot Do</div>
       <div class="learn-cards cols2">
-        <div class="learn-card lv1"><div class="learn-card-icon">&#128683;</div><div class="learn-card-title">Generate Your Written Work</div><div class="learn-card-body">Asking AI to "write my design brief", "write my evaluation", or "write my justification" and submitting it is academic dishonesty. It doesn't matter if you edit it slightly — if the core thinking isn't yours, it's dishonest.</div></div>
-        <div class="learn-card lv1"><div class="learn-card-icon">&#128683;</div><div class="learn-card-title">Cite AI as a Source</div><div class="learn-card-body">AI generates plausible-sounding text — it is not a reliable source of facts. It cannot be cited. If AI tells you a statistic, you must independently verify it from a real, citable source before using it.</div></div>
-        <div class="learn-card lv1"><div class="learn-card-icon">&#128683;</div><div class="learn-card-title">Let AI Make Your Decisions</div><div class="learn-card-body">Asking AI "which design should I choose?" and using its answer means the design decisions aren't yours. Examiners are assessing YOUR thinking and YOUR judgement — not an AI's.</div></div>
+        <div class="learn-card lv1"><div class="learn-card-icon">&#128683;</div><div class="learn-card-title">Generate Your Written Work</div><div class="learn-card-body">Asking AI to "write my design brief", "write my evaluation", or "write my justification" and submitting it is academic dishonesty. It doesn't matter if you edit it slightly  -  if the core thinking isn't yours, it's dishonest.</div></div>
+        <div class="learn-card lv1"><div class="learn-card-icon">&#128683;</div><div class="learn-card-title">Cite AI as a Source</div><div class="learn-card-body">AI generates plausible-sounding text  -  it is not a reliable source of facts. It cannot be cited. If AI tells you a statistic, you must independently verify it from a real, citable source before using it.</div></div>
+        <div class="learn-card lv1"><div class="learn-card-icon">&#128683;</div><div class="learn-card-title">Let AI Make Your Decisions</div><div class="learn-card-body">Asking AI "which design should I choose?" and using its answer means the design decisions aren't yours. Examiners are assessing YOUR thinking and YOUR judgement  -  not an AI's.</div></div>
         <div class="learn-card lv1"><div class="learn-card-icon">&#128683;</div><div class="learn-card-title">Use AI for Testing Data</div><div class="learn-card-body">Your product testing must use REAL products producing REAL data. AI cannot test your product. Any testing data must come from actual physical tests you performed.</div></div>
       </div>
     </div>
@@ -1120,15 +1247,15 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
     <div class="learn-section" id="sec-ai-criteria">
       <div class="learn-art-hdr">
         <div class="learn-art-badge">&#127919; Using AI Wisely</div>
-        <div class="learn-art-title">How AI Can Help — By Criterion</div>
-        <div class="learn-art-sub">Here are specific, academically honest ways you can use AI as a thinking partner for each criterion and strand — without letting it do your work for you.</div>
+        <div class="learn-art-title">How AI Can Help  -  By Criterion</div>
+        <div class="learn-art-sub">Here are specific, academically honest ways you can use AI as a thinking partner for each criterion and strand  -  without letting it do your work for you.</div>
       </div>
       <div id="aiAccordion">
 
         <div class="ai-crit">
           <div class="ai-crit-hdr" onclick="toggleAI(this)">
             <div class="ai-crit-badge" style="background:#e4f5fb;color:#0e5878;">A</div>
-            <div class="ai-crit-name">Criterion A — Inquiring &amp; Analyzing</div>
+            <div class="ai-crit-name">Criterion A  -  Inquiring &amp; Analyzing</div>
             <div class="ai-crit-arrow">&#9658;</div>
           </div>
           <div class="ai-crit-body">
@@ -1141,21 +1268,21 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
             </div>
             <div class="ai-strand" style="background:#e4f5fb;border-color:#7ecce8;">
               <div class="ai-strand-title" style="color:#0e5878;">Strand 2: Research Plan</div>
-              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI for a list of possible research topics related to your problem — then YOU decide which are most important and justify your prioritisation.</div>
+              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI for a list of possible research topics related to your problem  -  then YOU decide which are most important and justify your prioritisation.</div>
               <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your research plan for you.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"My design problem is [problem]. What are possible areas I could research? Give me 10 ideas." Then select and rank them yourself, explaining your reasoning.</div></div>
             </div>
             <div class="ai-strand" style="background:#e4f5fb;border-color:#7ecce8;">
               <div class="ai-strand-title" style="color:#0e5878;">Strand 3: Analyse Existing Products</div>
               <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI to explain what the ACCESS FM letters mean so you understand the framework fully.</div>
-              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI "what are common weaknesses in existing [type] products that I should look for?" — then do your own physical analysis.</div>
+              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI "what are common weaknesses in existing [type] products that I should look for?"  -  then do your own physical analysis.</div>
               <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to analyse a product for you. Your analysis must come from your own observation of real products.</div>
-              <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"I am analysing a [product type]. Using ACCESS FM as a framework, what questions should I be asking about each letter? Don't analyse it for me — just give me good questions to guide my own observation."</div></div>
+              <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"I am analysing a [product type]. Using ACCESS FM as a framework, what questions should I be asking about each letter? Don't analyse it for me  -  just give me good questions to guide my own observation."</div></div>
             </div>
             <div class="ai-strand" style="background:#e4f5fb;border-color:#7ecce8;">
               <div class="ai-strand-title" style="color:#0e5878;">Strand 4: Design Brief</div>
               <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI to review your draft brief and identify gaps: "What connections between research and design direction are unclear?"</div>
-              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your design brief — this is the central document that shows your thinking.</div>
+              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your design brief  -  this is the central document that shows your thinking.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"Here is my draft design brief: [paste text]. Does every sentence connect my research findings to a design direction? What is still vague or unsupported?"</div></div>
             </div>
           </div>
@@ -1164,19 +1291,19 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
         <div class="ai-crit">
           <div class="ai-crit-hdr" onclick="toggleAI(this)">
             <div class="ai-crit-badge" style="background:#fef3c7;color:#7a5000;">B</div>
-            <div class="ai-crit-name">Criterion B — Developing Ideas</div>
+            <div class="ai-crit-name">Criterion B  -  Developing Ideas</div>
             <div class="ai-crit-arrow">&#9658;</div>
           </div>
           <div class="ai-crit-body">
             <div class="ai-strand" style="background:#fef3c7;border-color:#f0d060;">
               <div class="ai-strand-title" style="color:#7a5000;">Strand 1: Design Specification</div>
               <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI to check whether your criteria are measurable: "Is 'my product must be strong' testable? How could I make it more specific?"</div>
-              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your specification — it must come from YOUR research findings.</div>
+              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your specification  -  it must come from YOUR research findings.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"Here are my design specifications: [list]. Which of these are vague or untestable? Suggest how I could make each one more specific and measurable without changing what I intend."</div></div>
             </div>
             <div class="ai-strand" style="background:#fef3c7;border-color:#f0d060;">
               <div class="ai-strand-title" style="color:#7a5000;">Strand 2 &amp; 3: Design Ideas and Selection</div>
-              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI for inspiration: "What design features exist in [product type] that address [specific need]?" — then create YOUR own original designs.</div>
+              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI for inspiration: "What design features exist in [product type] that address [specific need]?"  -  then create YOUR own original designs.</div>
               <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI to check your justification: "Does this explain WHY I chose this design, or just WHAT it is?"</div>
               <div class="ai-do no">&#10060; <strong>You cannot:</strong> Submit AI-generated design ideas or ask AI to choose your best design.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"I chose Design C. Here is my justification: [paste text]. Am I explaining WHY this design beats the others, or just describing it? What specific criteria comparisons am I missing?"</div></div>
@@ -1187,20 +1314,20 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
         <div class="ai-crit">
           <div class="ai-crit-hdr" onclick="toggleAI(this)">
             <div class="ai-crit-badge" style="background:#e2f7ec;color:#146832;">C</div>
-            <div class="ai-crit-name">Criterion C — Creating the Solution</div>
+            <div class="ai-crit-name">Criterion C  -  Creating the Solution</div>
             <div class="ai-crit-arrow">&#9658;</div>
           </div>
           <div class="ai-crit-body">
             <div class="ai-strand" style="background:#e2f7ec;border-color:#82d8a4;">
               <div class="ai-strand-title" style="color:#146832;">Strand 1: Production Plan</div>
-              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI "What should a detailed production plan include for a student making a [product type]?" — then build your own plan.</div>
-              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your plan — it must reflect your actual making process with your real tools and materials.</div>
+              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI "What should a detailed production plan include for a student making a [product type]?"  -  then build your own plan.</div>
+              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your plan  -  it must reflect your actual making process with your real tools and materials.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"Here is my production plan: [paste]. Is it specific enough for a peer to follow step by step? What is missing in terms of time estimates, materials, or sequencing?"</div></div>
             </div>
             <div class="ai-strand" style="background:#e2f7ec;border-color:#82d8a4;">
               <div class="ai-strand-title" style="color:#146832;">Strand 4: Justifying Changes</div>
               <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI: "I changed [X] to [Y] during making. How should I structure this as a justified change in my write-up?"</div>
-              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to invent changes or write your changes documentation — these must be real changes that actually happened.</div>
+              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to invent changes or write your changes documentation  -  these must be real changes that actually happened.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"I changed the width from 30cm to 35cm because the laptop didn't fit. Here's what I wrote: [paste]. Does this justify the change or just describe it? What evidence or reasoning should I add?"</div></div>
             </div>
           </div>
@@ -1209,26 +1336,26 @@ canvas#gameCanvas{border-radius:10px;max-width:100%;}
         <div class="ai-crit">
           <div class="ai-crit-hdr" onclick="toggleAI(this)">
             <div class="ai-crit-badge" style="background:#fdeaea;color:#7a1010;">D</div>
-            <div class="ai-crit-name">Criterion D — Evaluating</div>
+            <div class="ai-crit-name">Criterion D  -  Evaluating</div>
             <div class="ai-crit-arrow">&#9658;</div>
           </div>
           <div class="ai-crit-body">
             <div class="ai-strand" style="background:#fdeaea;border-color:#f4aac8;">
               <div class="ai-strand-title" style="color:#7a1010;">Strand 1: Testing Methods</div>
-              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI: "What types of tests could measure [specific criterion]?" — then design your own test methodology.</div>
-              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Use AI-generated testing data — all data must come from real physical tests.</div>
+              <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI: "What types of tests could measure [specific criterion]?"  -  then design your own test methodology.</div>
+              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Use AI-generated testing data  -  all data must come from real physical tests.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"My specification says the product must hold 3kg. What are different ways I could test this? I want to design a test that generates numerical data. Give me 3 options and I'll choose one."</div></div>
             </div>
             <div class="ai-strand" style="background:#fdeaea;border-color:#f4aac8;">
               <div class="ai-strand-title" style="color:#7a1010;">Strand 2: Evaluating Success</div>
               <div class="ai-do yes">&#9989; <strong>You can:</strong> Paste your evaluation draft and ask AI: "Am I being critical enough? Where am I just describing results instead of evaluating them?"</div>
-              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to evaluate your product — only you have the actual test results.</div>
+              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to evaluate your product  -  only you have the actual test results.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"Here is my evaluation: [paste]. For a 7-8 score, I need to critically evaluate against all criteria with authentic data. Which criteria am I not evaluating fully, and where am I missing honest critique of failures?"</div></div>
             </div>
             <div class="ai-strand" style="background:#fdeaea;border-color:#f4aac8;">
               <div class="ai-strand-title" style="color:#7a1010;">Strand 3 &amp; 4: Improvements and Impact</div>
               <div class="ai-do yes">&#9989; <strong>You can:</strong> Ask AI: "What factors should I consider when writing about the impact of a design solution on its target audience?"</div>
-              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your improvements or impact sections — these must come from your actual evaluation findings and real user feedback.</div>
+              <div class="ai-do no">&#10060; <strong>You cannot:</strong> Ask AI to write your improvements or impact sections  -  these must come from your actual evaluation findings and real user feedback.</div>
               <div class="ai-prompt-box"><div class="ai-prompt-lbl">&#128172; Try this prompt instead:</div><div class="ai-prompt">"My product partially failed the weight criterion. Here's my improvement idea: [paste]. Is this a description of what to change, or a justified improvement that explains why it will fix the problem and how it could be tested?"</div></div>
             </div>
           </div>
@@ -1557,7 +1684,7 @@ var DATA = {
   ]}
 };
 
-var ST = {crit:"A",strand:0,grades:{MYP1:true,MYP3:true,MYP5:true},lvls:{1:true,2:true,3:true,4:true},view:"grid"};
+var ST = {crit:"A",strand:0,grades:{MYP1:true,MYP3:true,MYP5:true},lvls:{1:true,2:true,3:true,4:true},view:"table"};
 
 function escAttr(s){ return s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
@@ -1684,13 +1811,7 @@ document.querySelectorAll(".lvl-pill").forEach(function(btn){
     renderMain();
   });
 });
-document.querySelectorAll(".vbtn").forEach(function(btn){
-  btn.addEventListener("click",function(){
-    ST.view=btn.dataset.v;
-    document.querySelectorAll(".vbtn").forEach(function(b){b.classList.toggle("on",b===btn);});
-    renderMain();
-  });
-});
+// View is always table
 
 function renderMain(){
   var main=document.getElementById("mainArea");
@@ -1704,27 +1825,14 @@ function renderMain(){
   h+="<div class='sec-hdr fade'>";
   h+="<div class='crit-tag' style='background:"+bg+";color:"+col+";border-color:"+col+"66'>Criterion "+ST.crit+" - "+crit.name+"</div>";
   h+="<div class='sec-title'>"+strand.t+"</div>";
-  h+="<div class='sec-meta'>"+grades.length+" grade level"+(grades.length!==1?"s":"")+" - "+lvls.length+" achievement level"+(lvls.length!==1?"s":"")+" showing</div>";
+  h+="<div class='sec-meta'>"+grades.length+" grade level"+(grades.length!==1?"s":"")+" - "+lvls.length+" success criteria level"+(lvls.length!==1?"s":"")+" showing</div>";
   h+="</div>";
   h+=renderKey(grades,lvls,strand);
 
-  if(ST.view==="grid"){
-    if(!grades.length||!lvls.length){
-      h+="<div class='empty'><p>Nothing to show</p><span>Turn on at least one grade and one level in the sidebar!</span></div>";
-    } else {
-      h+="<div class='grid-view fade'>";
-      grades.forEach(function(g){
-        lvls.forEach(function(lv){
-          var txt=strand.d[g][lv-1];
-          h+="<div class='rcard' data-lv='"+lv+"'>";
-          h+="<div class='card-top'><span class='card-grade'>"+GLBL[g]+"</span><span class='lvl-badge "+LCLS[lv-1]+"'>"+LBL[lv-1]+"</span></div>";
-          h+="<div class='card-txt'>"+hl(txt,lv)+"</div>";
-          h+="</div>";
-        });
-      });
-      h+="</div>";
-    }
-  } else if(ST.view==="table"){
+  // Always table view
+  if(!grades.length||!lvls.length){
+    h+="<div class='empty'><p>Nothing to show</p><span>Turn on at least one grade and one level in the sidebar!</span></div>";
+  } else {
     h+="<div class='tbl-wrap fade'><table><thead><tr><th>Grade Level</th>";
     lvls.forEach(function(l){ h+="<th class='th-lv"+l+"'><span class='tbl-tag lv"+l+"'>"+LBL[l-1]+"</span></th>"; });
     h+="</tr></thead><tbody>";
@@ -1734,17 +1842,26 @@ function renderMain(){
       h+="</tr>";
     });
     h+="</tbody></table></div>";
-  } else {
-    h+="<div class='fade'>";
-    lvls.forEach(function(lv){
-      h+="<div class='cmp-grp'>";
-      h+="<div class='cmp-grp-title'><span class='tbl-tag lv"+lv+"'>"+LBL[lv-1]+"</span>Grades compared side by side</div>";
-      h+="<div class='cmp-wrap'><div class='cmp-grid' style='grid-template-columns:repeat("+grades.length+",1fr)'>";
-      grades.forEach(function(g){ h+="<div class='cmp-hd lv"+lv+"'>"+GLBL[g]+"</div>"; });
-      grades.forEach(function(g){ h+="<div class='cmp-cell lv"+lv+"'>"+hl(strand.d[g][lv-1],lv)+"</div>"; });
-      h+="</div></div></div>";
-    });
-    h+="</div>";
+
+    // Progression examples below the rubric table
+    var si=ST.strand, c=ST.crit;
+    var exs=(PROG_EX[c]&&PROG_EX[c][si])||{};
+    var hasExamples = lvls.some(function(lv){ return exs[lv]; });
+    if(hasExamples){
+      h+="<div style='margin-top:28px;'>";
+      h+="<div style='font-size:16px;font-weight:900;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;'>&#128218; Progression Examples</div>";
+      h+="<div class='tbl-wrap'><table><thead><tr><th>Level</th><th>Example Student Response</th></tr></thead><tbody>";
+      lvls.forEach(function(lv){
+        var ex=exs[lv];
+        if(ex && strand.d[Object.keys(strand.d)[0]][lv-1] !== "Not Applicable"){
+          h+="<tr>";
+          h+="<td style='white-space:nowrap;'><span class='tbl-tag lv"+lv+"'>"+LBL[lv-1]+"</span></td>";
+          h+="<td class='td-lv"+lv+"' style='font-style:italic;font-size:15px;'>"+ex+"</td>";
+          h+="</tr>";
+        }
+      });
+      h+="</tbody></table></div></div>";
+    }
   }
   main.innerHTML=h;
 }
@@ -1832,6 +1949,7 @@ function populateProgSelectors(){
   updateProgStrands();
   document.getElementById("progStrand").addEventListener("change",renderProg);
   document.getElementById("progGrade").addEventListener("change",renderProg);
+  document.getElementById("progUnit").addEventListener("change",renderProg);
 }
 
 function updateProgStrands(){
@@ -1844,13 +1962,22 @@ function renderProg(){
   var c=document.getElementById("progCrit").value;
   var si=parseInt(document.getElementById("progStrand").value);
   var g=document.getElementById("progGrade").value;
+  var unit=document.getElementById("progUnit") ? document.getElementById("progUnit").value : "";
   var strand=DATA[c].strands[si];
   var notes=(PROG_NOTES[c]&&PROG_NOTES[c][si])||{};
   var exs=(PROG_EX[c]&&PROG_EX[c][si])||{};
   var emojis=["&#128543;","&#128077;","&#128640;","&#127942;"];
   var scores=["1-2","3-4","5-6","7-8"];
   var names=["Not Yet There","Meeting","Exceeding","Excelling"];
+  var unitHintText = (unit && UNIT_HINTS[unit] && UNIT_HINTS[unit][c]) ? UNIT_HINTS[unit][c] : "";
   var h="<div class='prog-track'>";
+  if(unitHintText){
+    var unitLabels={"MYP1-PD-desk-organizer":"Desk Organizers","MYP1-DD-scratch":"Scratch Games","MYP3-PD-clock":"Upcycled Clock","MYP3-DD-home":"Sustainable Homes","MYP3-PD-f1":"F1 Car Design","MYP3-DD-capcut":"Content Creation","MYP5-PD-device-station":"Device Station","MYP5-DD-endstar":"Endstar Game Dev","MYP5-PD-assistive":"Assistive Device","MYP5-DD-python":"Python App","SDGs":"SDGs"};
+    h+="<div style='background:#f0eaff;border-radius:12px;padding:14px 18px;border-left:4px solid var(--l4);margin-bottom:18px;'>";
+    h+="<div style='font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--l4);margin-bottom:5px;'>&#127919; Unit context: "+(unitLabels[unit]||unit)+"</div>";
+    h+="<div style='font-size:15px;font-weight:700;color:var(--text);line-height:1.6;'>"+unitHintText+"</div>";
+    h+="</div>";
+  }
   for(var lv=1;lv<=4;lv++){
     var txt=strand.d[g][lv-1];
     var note=notes[lv]||"";
@@ -1875,9 +2002,9 @@ function renderProg(){
 // ══════════════════════════════════════════════
 //  CHECKLIST MODULE
 // ══════════════════════════════════════════════
-var CL = {crit:null, strand:null, level:null, grade:"MYP5", game:null, checks:[]};
+var CL = {crit:null, strand:null, level:null, grade:"MYP5", unit:"", game:null, checks:[]};
 
-// Checklist task hints — plain English guidance for each rubric descriptor
+// Checklist task hints  -  plain English guidance for each rubric descriptor
 // keyed: HINTS[crit][strandIdx][level 1-4] = array of task strings
 var HINTS = {
   A:{
@@ -2203,7 +2330,7 @@ document.getElementById("check-btn-hdr").addEventListener("click", function(){
   document.getElementById("clBg").classList.add("open");
   document.getElementById("check-btn-hdr").classList.add("active");
   // Reset to step 1
-  CL = {crit:null, strand:null, level:null, grade:"MYP5", game:null, checks:[]};
+  CL = {crit:null, strand:null, level:null, grade:"MYP5", unit:"", game:null, checks:[]};
   clGoStep(1);
 });
 document.getElementById("clClose").addEventListener("click", function(){
@@ -2244,18 +2371,104 @@ wireChoices("clGameChoices", "game", "clNext4", null);
 
 function clGoStep(n){
   for(var i=1;i<=5;i++) document.getElementById("clStep"+i).classList.toggle("active", i===n);
+  if(n===5 && document.getElementById("clUnit")) CL.unit = document.getElementById("clUnit").value;
+  if(n===5 && document.getElementById("clGrade")) CL.grade = document.getElementById("clGrade").value;
   document.getElementById("clModalSub").textContent = [
     "Set your goal and choose your game!",
     "Step 1: Choose your Criterion",
     "Step 2: Choose your Strand",
-    "Step 3: Set your target level",
+    "Step 3: Set your target level and unit",
     "Step 4: Pick your game",
     "Your personalised checklist!"
   ][n] || "";
 }
 
+// Unit-specific example hints
+var UNIT_HINTS = {
+  "MYP1-PD-desk-organizer": {
+    A: "Think about students who have messy desks and need better organisation. Survey 10 classmates about what they keep on their desks.",
+    B: "Design at least 3 different desk organizer ideas. Consider using cardboard, foam, or recycled materials. Label compartments for pens, rulers, and USB drives.",
+    C: "Document your cutting, folding, and assembly steps. Take photos every 10 minutes. Note if any compartment dimensions need adjusting.",
+    D: "Test by placing your actual school supplies in each compartment. Ask 3 classmates to try it. Measure if everything fits as planned."
+  },
+  "MYP1-DD-scratch": {
+    A: "Research what makes a good educational game for Grade 6. Survey classmates about what subjects they find boring and could be made more fun.",
+    B: "Strand 2 - Design Ideas: Create 3 sketch storyboards showing each screen and gameplay flow of your game - draw each scene by hand showing the layout, sprites, buttons, and what happens when the player interacts. Label clearly. Strand 4 - Chosen Design: Present your chosen design as a digital version using Canva or an AI image tool to create a polished visual mockup of your game screens. Annotate the digital version explaining your design decisions and how it meets your specification.",
+    C: "Document your Scratch block sequences with screenshots. Note when you change a loop or add a new sprite. Test with another student as you build.",
+    D: "Have 5 classmates play your game and answer: Was it educational? Was it fun? Did it work without crashing? Record their scores and feedback."
+  },
+  "MYP3-PD-clock": {
+    A: "Research upcycling and sustainability. Find 3 existing upcycled clock products online. Survey your class about what materials they consider waste.",
+    B: "Design 3 clock concepts using salvaged materials (vinyl records, tin cans, wooden boards). Show where the clock mechanism goes and how it will be mounted.",
+    C: "Document your making with photos. Note when you modify a design because the material behaves differently than expected. Record drilling or cutting adjustments.",
+    D: "Test your clock accuracy over 24 hours. Have 5 people rate its aesthetic appeal 1-10. Evaluate if it uses genuinely upcycled materials or new ones."
+  },
+  "MYP3-DD-home": {
+    A: "Research natural disasters relevant to your region. Use HomeByMe to analyse 2 existing floor plans. Survey family about what features matter most in a home.",
+    B: "Strand 2 - Design Ideas: Create 2 hand-sketched floor plan designs showing room layouts, emergency exits, and structural features. Each floor plan must be labelled with room names, dimensions, and annotations explaining how the design addresses safety and sustainability. Strand 3 - Chosen Design: Use Microsoft Forms to create a survey that combines BOTH qualitative questions (e.g. 'Which design feels more spacious and why?') and quantitative questions (e.g. 'Rate each design 1-5 for safety features') to present your chosen design to an audience and justify your selection using the survey results.",
+    C: "Document your HomeByMe process with screenshots. Note when you revise a room layout and why. Record the 3D view at each major stage.",
+    D: "Evaluate your floor plan against safety criteria: Does it have emergency exits? Is it built for local hazards? Get feedback from 3 people about liveability."
+  },
+  "MYP3-PD-f1": {
+    A: "Research aerodynamics and F1 car design principles. Analyse 2 existing F1 car designs using ACCESS FM. Survey classmates about what car features matter most.",
+    B: "Create 3 F1 car concepts in Onshape. Consider aerodynamic shapes, weight distribution, and tyre design. Label all key components with dimensions.",
+    C: "Document your Onshape modelling process with screenshots. Record when you use mirror, extrude, or fillet tools. Note when you revise a shape for aerodynamics.",
+    D: "Test your design in a virtual wind tunnel or use calculations. Have classmates evaluate the aesthetics and functionality. Measure if dimensions match your plan."
+  },
+  "MYP3-DD-capcut": {
+    A: "Research effective video content for your target audience. Analyse 2 existing videos using ACCESS FM adapted for digital media. Survey classmates on video preferences.",
+    B: "Plan 3 different content concepts with storyboards. Consider transitions, text overlays, and music choices. Show your shot list and editing plan.",
+    C: "Document your CapCut editing process with screenshots. Record when you change a cut, add an effect, or adjust audio. Note each revision and why you made it.",
+    D: "Show your video to 5 people and collect ratings on engagement, clarity, and production quality. Evaluate against your original creative brief."
+  },
+  "MYP5-PD-device-station": {
+    A: "Survey 15 students about device charging habits and problems. Research 5 existing charging station products. Analyse the gap between what exists and what students need.",
+    B: "Design 3 detailed device station concepts with technical drawings. Consider cable management, number of ports, materials, and safety. Specify dimensions for all versions.",
+    C: "Follow your production plan precisely. Document every step with photos. Justify each design change with reference to your specification criteria.",
+    D: "Test all specification criteria with measurable data: cable capacity, charging speed, stability, safety. Collect user feedback from 5 students. Evaluate every criterion honestly."
+  },
+  "MYP5-DD-endstar": {
+    A: "Research game design principles and your target audience's preferences. Analyse 3 existing games in the Endstar platform. Identify what makes a game engaging vs frustrating.",
+    B: "Design 3 game concepts with level maps, character designs, and mechanics diagrams. Create a full Game Design Document specifying objectives, rules, and win conditions.",
+    C: "Document your game development with screenshots at each feature completion. Record and justify every change to mechanics, level design, or visual assets.",
+    D: "Conduct playtesting with 5 users. Record completion rates, bug frequency, and enjoyment ratings. Evaluate every game design specification criterion with authentic data."
+  },
+  "MYP5-PD-assistive": {
+    A: "Interview or survey elderly users or their caregivers about daily challenges. Research 4 existing assistive devices. Identify the most critical unmet need you can address.",
+    B: "Design 3 assistive device concepts with ergonomics as the priority. Create detailed technical drawings with dimensions scaled to elderly hand sizes. Include materials and cost estimates.",
+    C: "Build your device following your production plan. Take photos at every stage. Carefully document and justify any changes to dimensions, materials, or mechanisms.",
+    D: "Test with elderly users if possible, or simulate with appropriate constraints. Evaluate safety, usability, and effectiveness against every specification criterion with real data."
+  },
+  "MYP5-DD-python": {
+    A: "Define your app's target user with specificity. Research 3 existing similar apps. Survey 10 potential users about what features they most need and what frustrates them.",
+    B: "Design 3 different app interface concepts with wireframes. Plan your Python code structure with flowcharts. Write a full specification listing every feature and its acceptance criteria.",
+    C: "Document your Python development with code screenshots and commit messages. Note every bug found and the fix applied. Record all UI changes and why you made them.",
+    D: "User-test your app with 5 people completing real tasks. Record error rates, task completion times, and satisfaction scores. Evaluate every specification criterion with authentic data."
+  },
+  "SDGs": {
+    A: "Choose a specific SDG and research the local or global problem it addresses. Survey your community about awareness and impact. Identify the specific gap your design will address.",
+    B: "Design 3 solutions that directly address your chosen SDG. Consider sustainability, scalability, and community impact. Link every design decision to the SDG framework.",
+    C: "Build your solution documenting every step. Record how your design choices contribute to sustainability goals. Note changes made and how they improve SDG alignment.",
+    D: "Evaluate your solution's real impact: Does it address the SDG? Is it sustainable? Could it scale? Collect feedback from community members or experts if possible."
+  }
+};
+
+var GEN_Z_TICK = [
+  "It's the productivity for me.",
+  "Task completed. Energy: Immaculate.",
+  "We love a checked box. Period.",
+  "Now you're cooking, let's go!",
+  "Valid move. Keep that same energy.",
+  "That's a massive W for Criterion {c} Strand {s}.",
+  "No cap, you just levelled up.",
+  "Understood the assignment fr fr.",
+  "This is giving main character energy.",
+  "Slay. Next task incoming!"
+];
+
 function clGenerate(){
   var c = CL.crit, si = parseInt(CL.strand), lv = parseInt(CL.level), g = CL.grade||"MYP5";
+  CL.unit = document.getElementById("clUnit") ? document.getElementById("clUnit").value : "";
   var strand = DATA[c].strands[si];
   var tasks = (HINTS[c]&&HINTS[c][si]&&HINTS[c][si][lv]) || [];
   var lvNames = ["Not Yet There","Meeting","Exceeding","Excelling"];
@@ -2264,10 +2477,15 @@ function clGenerate(){
   var lvEmoji  = ["😟","👍","🚀","🏆"];
   var lvCheer  = [
     "Every journey starts somewhere. Let's get you going!",
-    "You're aiming to meet the standard — great start!",
+    "You're aiming to meet the standard. Great start!",
     "You're pushing beyond the basics. That takes courage!",
     "You've challenged yourself to reach the TOP level. Let's go!"
   ];
+  // Unit hint
+  var unitHint = "";
+  if(CL.unit && UNIT_HINTS[CL.unit] && UNIT_HINTS[CL.unit][c]) {
+    unitHint = UNIT_HINTS[CL.unit][c];
+  }
   // Store checks state
   CL.checks = tasks.map(function(){ return false; });
   GAME_STATE.done = 0;
@@ -2283,9 +2501,25 @@ function clGenerate(){
   // Banner
   h += "<div class='cl-banner "+lvCls[lv-1]+"'>";
   h += "<div class='cl-banner-icon'>"+lvEmoji[lv-1]+"</div>";
-  h += "<div class='cl-banner-title'>You've challenged yourself to reach "+lvScores[lv-1]+" — "+lvNames[lv-1]+"!</div>";
+  h += "<div class='cl-banner-title'>You've challenged yourself to reach "+lvScores[lv-1]+" - "+lvNames[lv-1]+"!</div>";
   h += "<div class='cl-banner-sub'>"+lvCheer[lv-1]+" "+tasks.length+" tasks to complete.</div>";
   h += "</div>";
+
+  // Unit tip
+  if(unitHint){
+    var unitLabels = {
+      "MYP1-PD-desk-organizer":"Desk Organizers","MYP1-DD-scratch":"Scratch Games",
+      "MYP3-PD-clock":"Upcycled Clock","MYP3-DD-home":"Sustainable Homes",
+      "MYP3-PD-f1":"F1 Car Design","MYP3-DD-capcut":"Content Creation",
+      "MYP5-PD-device-station":"Device Station","MYP5-DD-endstar":"Endstar Game Dev",
+      "MYP5-PD-assistive":"Assistive Device","MYP5-DD-python":"Python App",
+      "SDGs":"Designing for a Better Future"
+    };
+    h += "<div style='background:#f0eaff;border-radius:12px;padding:14px 18px;border-left:4px solid var(--l4);margin-bottom:4px;'>";
+    h += "<div style='font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--l4);margin-bottom:5px;'>&#127919; Unit tip: "+(unitLabels[CL.unit]||CL.unit)+"</div>";
+    h += "<div style='font-size:15px;font-weight:700;color:var(--text);line-height:1.6;'>"+unitHint+"</div>";
+    h += "</div>";
+  }
 
   // Rubric quote
   h += "<div style='background:var(--surface2);border-radius:12px;padding:14px 18px;border-left:4px solid var(--"+lvCls[lv-1]+")'>";
@@ -2307,8 +2541,11 @@ function clGenerate(){
   h += "</div>";
 
   // Checklist
+  h += "<div id='clTickMsg' style='min-height:28px;padding:4px 0;font-size:14px;font-weight:900;color:var(--l4);text-align:center;transition:opacity .3s;opacity:0;'></div>";
   h += "<div class='cl-list' id='clList'>";
   tasks.forEach(function(task, i){
+    // Get unit example if exists
+    var exHint = "";
     h += "<div class='cl-item' data-idx='"+i+"'>";
     h += "<div class='cl-checkbox'></div>";
     h += "<div class='cl-item-body'><div class='cl-item-txt'>"+task+"</div></div>";
@@ -2317,6 +2554,7 @@ function clGenerate(){
   h += "</div>";
 
   document.getElementById("clOutput").innerHTML = h;
+  document.getElementById("clProgressCheckResult").style.display = "none";
   clGoStep(5);
 
   // Draw initial game frame
@@ -2329,18 +2567,71 @@ function clGenerate(){
     var idx = parseInt(item.dataset.idx);
     CL.checks[idx] = !CL.checks[idx];
     item.classList.toggle("done", CL.checks[idx]);
-    item.querySelector(".cl-checkbox").textContent = CL.checks[idx] ? "✓" : "";
+    item.querySelector(".cl-checkbox").textContent = CL.checks[idx] ? "\u2713" : "";
     var done = CL.checks.filter(Boolean).length;
     var pct = Math.round(done/CL.checks.length*100);
     document.getElementById("clProgressFill").style.width = pct+"%";
     document.getElementById("clProgressPct").textContent = pct+"%";
     document.getElementById("gameProg").textContent = done+" / "+CL.checks.length+" tasks done";
     drawGame(done, CL.checks.length);
-    if(CL.checks[idx]) fireConfetti();
+    if(CL.checks[idx]) {
+      fireConfetti();
+      var msg = GEN_Z_TICK[Math.floor(Math.random()*GEN_Z_TICK.length)];
+      msg = msg.replace("{c}", c).replace("{s}", (si+1));
+      var tickEl = document.getElementById("clTickMsg");
+      if(tickEl){ tickEl.textContent = msg; tickEl.style.opacity="1"; setTimeout(function(){ tickEl.style.opacity="0"; },2500); }
+    }
     if(done===CL.checks.length) clCelebrate();
+    // Hide progress check result on change
+    document.getElementById("clProgressCheckResult").style.display = "none";
   });
 }
 
+function clProgressCheck(){
+  var done = CL.checks ? CL.checks.filter(Boolean).length : 0;
+  var total = CL.checks ? CL.checks.length : 0;
+  if(total===0) return;
+  var pct = done/total;
+  var msgs;
+  var resultEl = document.getElementById("clProgressCheckResult");
+  if(!resultEl) return;
+
+  if(pct >= 1){
+    var completes = [
+      "You ATE (8) and left no boxes unticked. Legendary!",
+      "That's tough! No cap, you're giving designer pro max.",
+      "What comes after 7? ATE! PERIOD.",
+      "You understood the assignment. Literally. MASSIVE WIN!"
+    ];
+    msgs = [completes[Math.floor(Math.random()*completes.length)]];
+    for(var i=0;i<5;i++) setTimeout(fireConfetti, i*200);
+  } else if(pct >= 0.8){
+    var highs = [
+      "You're the GOAT of design, this is a massive W! "+done+" out of "+total+" done, you're almost there!",
+      "Absolute cinema, your progress is giving. "+done+" / "+total+" done - lock in for the final stretch!",
+      "You're literally in 4K resolution right now, keep the momentum fire! Just "+(total-done)+" left!"
+    ];
+    msgs = [highs[Math.floor(Math.random()*highs.length)]];
+  } else if(pct >= 0.4){
+    var mids = [
+      done+" out of "+total+" done. You're starting to cook. Lock in! Almost there!",
+      "You're giving 'Main Character' energy right now. "+done+"/"+total+" done. Let's keep going!"
+    ];
+    msgs = [mids[Math.floor(Math.random()*mids.length)]];
+  } else if(pct > 0){
+    var lows = [
+      "Only "+done+" out of "+total+" boxes ticked? That's mid. I know you can do better, let's go!",
+      "We see you starting! "+done+"/"+total+" done. No cap, the rubric is ready when you are. Let's make it happen!"
+    ];
+    msgs = [lows[Math.floor(Math.random()*lows.length)]];
+  } else {
+    msgs = ["The checklist is currently at zero. No cap, the rubric is ready when you are. Let's make it happen!"];
+  }
+
+  resultEl.style.display = "block";
+  resultEl.innerHTML = "&#128200; " + msgs[0];
+  resultEl.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
 // ── GAME RENDERER ──────────────────────────────────────────────────────────
 function drawGame(done, total){
   var canvas = document.getElementById("gameCanvas");
@@ -2639,16 +2930,76 @@ function clCelebrate(){
   setTimeout(function(){ if(banner) banner.style.transform=""; },300);
 }
 
-function clPrint(){
-  window.print();
+// ── MLA CITATION GENERATOR ──────────────────────────────────────────────────
+var savedCitations = [];
+function generateMLACite(){
+  var url = document.getElementById("citeUrlInput") ? document.getElementById("citeUrlInput").value.trim() : "";
+  var author = document.getElementById("citeAuthor") ? document.getElementById("citeAuthor").value.trim() : "";
+  var title = document.getElementById("citeTitle") ? document.getElementById("citeTitle").value.trim() : "";
+  var year = document.getElementById("citeYear") ? document.getElementById("citeYear").value.trim() : "";
+  var resultEl = document.getElementById("citeResult");
+  if(!resultEl) return;
+  if(!url){ resultEl.innerHTML="<div style='color:#c00;font-weight:700;padding:10px;'>Please paste a URL first!</div>"; resultEl.style.display="block"; return; }
+  // Parse domain as site name
+  var siteName = "";
+  try { siteName = new URL(url).hostname.replace("www.",""); } catch(e){ siteName = url; }
+  // Today's date for access date
+  var now = new Date();
+  var months = ["Jan.","Feb.","Mar.","Apr.","May","June","July","Aug.","Sept.","Oct.","Nov.","Dec."];
+  var accessDate = now.getDate()+" "+months[now.getMonth()]+" "+now.getFullYear();
+  // Build MLA citation
+  var parts = [];
+  if(author) parts.push(author+".");
+  if(title) parts.push('"'+title+'."');
+  parts.push("<em>"+(siteName||"Website")+"</em>,");
+  if(year) parts.push(year+",");
+  parts.push(url+".");
+  parts.push("Accessed "+accessDate+".");
+  var citation = parts.join(" ");
+  resultEl.style.display = "block";
+  resultEl.innerHTML = "<div style='font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--l4);margin-bottom:8px;'>&#9989; Your MLA Citation</div>"
+    +"<div class='cite-box' id='generatedCite' style='margin:0 0 10px 0;'>"+citation+"</div>"
+    +"<div style='display:flex;gap:10px;'>"
+    +"<button onclick='copyMLACite()' style='padding:9px 18px;border-radius:10px;border:2px solid var(--l4-bd);background:var(--l4-bg);color:var(--l4);font-family:Nunito,sans-serif;font-size:13px;font-weight:900;cursor:pointer;'>&#128203; Copy</button>"
+    +"<button onclick='saveMLACite()' style='padding:9px 18px;border-radius:10px;border:none;background:var(--l4);color:#fff;font-family:Nunito,sans-serif;font-size:13px;font-weight:900;cursor:pointer;'>&#128204; Save to List</button>"
+    +"</div>";
 }
+function copyMLACite(){
+  var el = document.getElementById("generatedCite");
+  if(!el) return;
+  var text = el.innerText;
+  navigator.clipboard.writeText(text).catch(function(){ });
+  var btns = document.querySelectorAll("#citeResult button");
+  if(btns[0]){ btns[0].textContent = "\u2713 Copied!"; setTimeout(function(){ if(btns[0]) btns[0].textContent = "\uD83D\uDCCB Copy"; },1500); }
+}
+function saveMLACite(){
+  var el = document.getElementById("generatedCite");
+  if(!el) return;
+  var text = el.innerText;
+  if(savedCitations.indexOf(text)<0){
+    savedCitations.push(text);
+    renderSavedCitations();
+  }
+}
+function renderSavedCitations(){
+  var el = document.getElementById("citeSaved"), listEl = document.getElementById("citeSavedList");
+  if(!el||!listEl) return;
+  el.style.display = savedCitations.length ? "block" : "none";
+  listEl.innerHTML = savedCitations.map(function(c,i){
+    return "<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;'>"
+      +"<div style='background:var(--surface2);border-radius:8px;padding:10px 14px;flex:1;font-family:monospace;font-size:13px;'>"+c+"</div>"
+      +"<button onclick='removeCite("+i+")' style='padding:6px 10px;border-radius:8px;border:2px solid var(--l1-bd);background:var(--l1-bg);color:var(--l1);font-family:Nunito,sans-serif;font-size:12px;font-weight:900;cursor:pointer;flex-shrink:0;'>&#128465;</button>"
+      +"</div>";
+  }).join("");
+}
+function removeCite(i){ savedCitations.splice(i,1); renderSavedCitations(); }
 
 
 // ── MODE SWITCHER ──
 document.getElementById("modeRubric").addEventListener("click", function(){
   document.getElementById("modeRubric").classList.add("on");
   document.getElementById("modeLearn").classList.remove("on");
-  document.getElementById("panelRubric").style.display = "";
+  document.getElementById("panelRubric").style.display = "flex";
   document.getElementById("panelLearn").style.display = "none";
 });
 document.getElementById("modeLearn").addEventListener("click", function(){
