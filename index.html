@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYP Design Rubric Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── BASE STYLES ── */
+* { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#f7f4ef; --surface:#fff; --surface2:#edeae4; --border:#ddd8cf;
+  --text:#111; --muted:#333; --dim:#555;
+  --ca:#29a8d4; --ca-bg:#e4f5fb;
+  --cb:#d49800; --cb-bg:#fef3c7;
+  --cc:#28a85e; --cc-bg:#e2f7ec;
+  --cd:#e03c3c; --cd-bg:#fdeaea;
+  --l1-bg:#fde8f0; --l1:#9a1548; --l1-bd:#f4aac8; --l1-bg-tbl:rgba(253,232,240,0.55);
+  --l2-bg:#e2f7ec; --l2:#146832; --l2-bd:#82d8a4; --l2-bg-tbl:rgba(226,247,236,0.55);
+  --l3-bg:#e4f5fb; --l3:#0e5878; --l3-bd:#7ecce8; --l3-bg-tbl:rgba(228,245,251,0.55);
+  --l4-bg:#f0eaff; --l4:#4a18a8; --l4-bd:#b898f2; --l4-bg-tbl:rgba(240,234,255,0.55);
+}
+body { background:var(--bg); color:var(--text); font-family:'Nunito',sans-serif; font-size:17px; line-height:1.65; min-height:100vh; }
+
+/* ── HEADER ── */
+header { background:var(--surface); border-bottom:3px solid var(--border); padding:18px 36px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.hdr-left { display:flex; align-items:center; gap:14px; }
+.hdr-icon { font-size:36px; line-height:1; }
+.hdr-title { font-size:24px; font-weight:900; color:var(--text); }
+.hdr-sub { font-size:14px; font-weight:700; color:var(--muted); margin-top:2px; }
+
+/* ── LAYOUT ── */
+.layout { display:grid; grid-template-columns:295px 1fr; min-height:calc(100vh - 78px); }
+
+/* ── SIDEBAR ── */
+.sidebar { background:var(--surface); border-right:3px solid var(--border); padding:22px 16px; display:flex; flex-direction:column; gap:20px; position:sticky; top:0; height:calc(100vh - 78px); overflow-y:auto; }
+.flabel { font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); margin-bottom:8px; }
+.crit-btn { display:flex; align-items:center; gap:10px; padding:11px 13px; border-radius:12px; border:2.5px solid transparent; background:transparent; cursor:pointer; width:100%; text-align:left; transition:all .15s; margin-bottom:4px; font-family:'Nunito',sans-serif; }
+.crit-btn:hover { background:var(--bg); }
+.cswatch { width:14px; height:14px; border-radius:4px; flex-shrink:0; }
+.crit-btn[data-c="A"] .cswatch{background:var(--ca);} .crit-btn[data-c="A"].on{border-color:var(--ca);background:var(--ca-bg);}
+.crit-btn[data-c="B"] .cswatch{background:var(--cb);} .crit-btn[data-c="B"].on{border-color:var(--cb);background:var(--cb-bg);}
+.crit-btn[data-c="C"] .cswatch{background:var(--cc);} .crit-btn[data-c="C"].on{border-color:var(--cc);background:var(--cc-bg);}
+.crit-btn[data-c="D"] .cswatch{background:var(--cd);} .crit-btn[data-c="D"].on{border-color:var(--cd);background:var(--cd-bg);}
+.vtoggle{display:flex;gap:3px;background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:3px;margin-bottom:10px;}
+.vbtn{flex:1;padding:8px 4px;border-radius:7px;border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:900;color:var(--dim);transition:all .15s;font-family:'Nunito',sans-serif;}
+.vbtn.on{background:var(--surface);color:var(--text);box-shadow:0 2px 6px rgba(0,0,0,.1);}
+
+/* ── MAIN CONTENT ── */
+.main{padding:30px 36px;}
+.sec-hdr{margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid var(--border);}
+.sec-title{font-size:28px;font-weight:900;color:var(--text);line-height:1.2;}
+.sec-meta{font-size:14px;font-weight:700;color:var(--muted);margin-top:6px;}
+
+/* ── LEARN DESIGN / CHECKLIST STYLES ── */
+.unit-selector-box { background:var(--surface2); border:3px solid var(--border); border-radius:16px; padding:24px; margin-bottom:30px; }
+.sel-row { display:flex; gap:15px; margin-top:15px; }
+.tsel { flex:1; padding:12px; border-radius:10px; border:2px solid var(--border); font-family:inherit; font-weight:700; }
+.unit-banner { margin-top:20px; padding:15px; background:var(--surface); border-radius:12px; border-left:5px solid var(--ca); font-weight:800; }
+.checklist-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:20px; }
+.cl-card { background:#fff; border:2px solid var(--border); border-radius:12px; padding:15px; }
+.cl-card h4 { margin-bottom:10px; color: var(--text); display:flex; align-items:center; gap:8px; }
+.cl-item { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; font-size:14px; font-weight:700; color:var(--muted); }
+.cl-item input { margin-top:4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-left">
+    <div class="hdr-icon">🎨</div>
+    <div>
+      <div class="hdr-title">MYP Design Rubric Explorer</div>
+      <div class="hdr-sub">Product & Digital Design Studio</div>
+    </div>
+  </div>
+  <div class="vtoggle" style="width:280px;">
+    <button id="modeRubric" class="vbtn on">Rubric Explorer</button>
+    <button id="modeLearn" class="vbtn">Learn Design</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebarContainer">
+    <div class="flabel">Criterion</div>
+    <div id="critBtns">
+      <button class="crit-btn on" data-c="A"><div class="cswatch"></div><div><strong>Criterion A</strong></div></button>
+      <button class="crit-btn" data-c="B"><div class="cswatch"></div><div><strong>Criterion B</strong></div></button>
+      <button class="crit-btn" data-c="C"><div class="cswatch"></div><div><strong>Criterion C</strong></div></button>
+      <button class="crit-btn" data-c="D"><div class="cswatch"></div><div><strong>Criterion D</strong></div></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div id="panelRubric">
+      <div class="sec-hdr">
+        <h2 class="sec-title">Rubric Explorer</h2>
+        <p class="sec-meta">Interactive overview of the MYP Design assessment criteria.</p>
+      </div>
+      <div id="rubricContent">Select a criterion to view specific strands and levels.</div>
+    </div>
+
+    <div id="panelLearn" style="display:none;">
+      <div class="sec-hdr">
+        <h2 class="sec-title">The Design Cycle</h2>
+        <p class="sec-meta">Master the iterative process for creating physical products and digital solutions.</p>
+      </div>
+
+      <div class="unit-selector-box">
+        <h3>Project Checklist Maker</h3>
+        <p style="font-size:14px; color:var(--dim);">Choose your grade and design stream to generate unit-specific tasks.</p>
+        <div class="sel-row">
+          <select id="gradeSel" class="tsel" onchange="updateUnit()">
+            <option value="">Select Grade</option>
+            <option value="MYP1">MYP 1</option>
+            <option value="MYP3">MYP 3</option>
+            <option value="MYP5">MYP 5</option>
+          </select>
+          <select id="streamSel" class="tsel" onchange="updateUnit()">
+            <option value="">Select Stream</option>
+            <option value="Product">Product Design</option>
+            <option value="Digital">Digital Design</option>
+          </select>
+        </div>
+        <div id="unitDisplay" class="unit-banner">Please select a grade and stream to begin.</div>
+      </div>
+
+      <div id="checklistResult" class="checklist-grid"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+// ── UNIT DATA ──
+const projectData = {
+  "MYP1-Product": { title: "Desk Organizers", tasks: { 
+    A: ["Analyze existing desk tidies", "Research materials like wood or acrylic"], 
+    B: ["Sketch 3 initial design ideas", "Create technical drawings"], 
+    C: ["Mark and cut materials accurately", "Assemble using secure joints"], 
+    D: ["Test with stationery", "Evaluate against design specifications"] } 
+  },
+  "MYP1-Digital": { title: "Educational Games (Scratch)", tasks: { 
+    A: ["Define the educational purpose", "Research game mechanics"], 
+    B: ["Create a visual storyboard", "Design characters and sprites"], 
+    C: ["Program character movement", "Implement game logic and scoring"], 
+    D: ["Peer testing for bugs", "Evaluate educational impact"] } 
+  },
+  "MYP3-Product": { title: "Upcycled Clock / F1 Car Designs", tasks: { 
+    A: ["Research upcycling/aerodynamics", "Analyze client needs"], 
+    B: ["3D Modeling in Onshape", "Develop precise assembly plans"], 
+    C: ["Manufacture parts using CAD/CAM", "Assemble mechanical components"], 
+    D: ["Test aerodynamic performance", "User evaluation of aesthetics"] } 
+  },
+  "MYP3-Digital": { title: "Calamity-Proof Homes / Content Creation", tasks: { 
+    A: ["Research disaster-resilient design", "Analyze social media trends"], 
+    B: ["Floor planning in HomeByMe", "Create video storyboards"], 
+    C: ["3D house rendering", "Edit footage using Capcut Web"], 
+    D: ["Evaluate house sustainability", "Analyze content engagement"] } 
+  },
+  "MYP5-Product": { title: "Assistive Devices / Device Stations", tasks: { 
+    A: ["Interview elderly target users", "Research ergonomic requirements"], 
+    B: ["Produce manufacturing drawings", "Create project timelines"], 
+    C: ["High-fidelity fabrication", "Incorporate safety features"], 
+    D: ["Conduct user trials", "Evaluate impact on user independence"] } 
+  },
+  "MYP5-Digital": { title: "Advanced Game Dev / Python Apps", tasks: { 
+    A: ["Define complex algorithms", "Research database structures"], 
+    B: ["Map out logic flowcharts", "Design user interface (UI) layouts"], 
+    C: ["Develop code in Python", "Implement advanced game mechanics"], 
+    D: ["Rigorous beta testing", "Analyze code efficiency and UX"] } 
+  }
+};
+
+function updateUnit() {
+  const grade = document.getElementById('gradeSel').value;
+  const stream = document.getElementById('streamSel').value;
+  const display = document.getElementById('unitDisplay');
+  const result = document.getElementById('checklistResult');
+  
+  if(!grade || !stream) {
+    display.innerHTML = "Please select a grade and stream to begin.";
+    result.innerHTML = "";
+    return;
+  }
+
+  const key = `${grade}-${stream}`;
+  const unit = projectData[key] || { title: "Designing for SDGs", tasks: { A:[], B:[], C:[], D:[] } };
+  
+  display.innerHTML = `<strong>Project:</strong> ${unit.title}`;
+  
+  const crits = [
+    {id:'A', name:'Inquiring & Analyzing', color:'var(--ca)'},
+    {id:'B', name:'Developing Ideas', color:'var(--cb)'},
+    {id:'C', name:'Creating the Solution', color:'var(--cc)'},
+    {id:'D', name:'Evaluating', color:'var(--cd)'}
+  ];
+
+  result.innerHTML = crits.map(c => `
+    <div class="cl-card" style="border-top: 4px solid ${c.color}">
+      <h4>${c.id}. ${c.name}</h4>
+      ${(unit.tasks[c.id] || ["Tasks for this unit..."]).map(task => `
+        <div class="cl-item"><input type="checkbox"> <span>${task}</span></div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+// ── MODE SWITCHER ──
+document.getElementById("modeRubric").addEventListener("click", function(){
+  this.classList.add("on");
+  document.getElementById("modeLearn").classList.remove("on");
+  document.getElementById("panelRubric").style.display = "";
+  document.getElementById("panelLearn").style.display = "none";
+  document.getElementById("sidebarContainer").style.display = "";
+});
+
+document.getElementById("modeLearn").addEventListener("click", function(){
+  this.classList.add("on");
+  document.getElementById("modeRubric").classList.remove("on");
+  document.getElementById("panelRubric").style.display = "none";
+  document.getElementById("panelLearn").style.display = "block";
+  document.getElementById("sidebarContainer").style.display = "none";
+});
+</script>
+
+</body>
+</html>
